@@ -135,9 +135,18 @@ AppGenerator.prototype.writeIndex = function writeIndex() {
   ];
 
   if (!this.includeRequireJS) {
-    this.indexFile = this.appendScripts(this.indexFile, 'scripts/jquery.js', [
-      'components/jquery/jquery.js'
+    this.indexFile = this.appendScripts(this.indexFile, 'scripts/main.js', [
+      'components/jquery/jquery.js',
+      'scripts/main.js'
     ]);
+
+    this.indexFile = this.appendFiles({
+      html: this.indexFile,
+      fileType: 'js',
+      optimizedPath: 'scripts/coffee.js',
+      sourceFileList: ['scripts/coffee.js'],
+      searchPath: '.tmp'
+    });
   }
 
   if (this.compassBootstrap && !this.includeRequireJS) {
