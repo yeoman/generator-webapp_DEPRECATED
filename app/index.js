@@ -22,6 +22,7 @@ function AppGenerator(args, options, config) {
 
   this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
   this.mainJsFile = '';
+  this.mainCoffeeFile = 'console.log "\'Allo from CoffeeScript!"';
 
   this.on('end', function () {
     console.log('\nI\'m all done. Just run ' + 'npm install && bower install'.bold.yellow + ' to install the required dependencies.');
@@ -144,7 +145,7 @@ AppGenerator.prototype.writeIndex = function writeIndex() {
       html: this.indexFile,
       fileType: 'js',
       optimizedPath: 'scripts/coffee.js',
-      sourceFileList: ['scripts/coffee.js'],
+      sourceFileList: ['scripts/hello.js'],
       searchPath: '.tmp'
     });
   }
@@ -239,4 +240,5 @@ AppGenerator.prototype.app = function app() {
   this.mkdir('app/images');
   this.write('app/index.html', this.indexFile);
   this.write('app/scripts/main.js', this.mainJsFile);
+  this.write('app/scripts/hello.coffee', this.mainCoffeeFile);
 };

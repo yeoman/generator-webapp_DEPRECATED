@@ -19,7 +19,7 @@ module.exports = function (grunt) {
         watch: {
             coffee: {
                 files: ['<%%= yeoman.app %>/scripts/*.coffee'],
-                tasks: ['coffee']
+                tasks: ['coffee:dist']
             },
             coffeeTest: {
                 files: ['test/spec/*.coffee'],
@@ -102,7 +102,7 @@ module.exports = function (grunt) {
             }
         },
         coffee: {
-            server: {
+            dist: {
                 files: [{
                     expand: true,
                     cwd: '<%%= yeoman.app %>/scripts',
@@ -110,11 +110,6 @@ module.exports = function (grunt) {
                     dest: '.tmp/scripts',
                     ext: '.js'
                 }]
-            },
-            dist: {
-                files: {
-                    '.tmp/scripts/coffee.js': '<%%= yeoman.app %>/scripts/*.coffee'
-                }
             },
             test: {
                 files: [{
@@ -261,7 +256,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            'coffee:server',
+            'coffee:dist',
             'compass:server',
             'livereload-start',
             'connect:livereload',
