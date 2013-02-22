@@ -170,6 +170,13 @@ module.exports = function (grunt) {
                 }
             }
         },<% } %>
+        rev: {
+            dist: {
+                files: {
+                    src: ['.tmp/**/*.{js,css,png,jpg}']
+                }
+            }
+        },
         useminPrepare: {
             html: '<%%= yeoman.app %>/index.html',
             options: {
@@ -276,6 +283,7 @@ module.exports = function (grunt) {
         'test',
         'coffee',
         'compass:dist',
+        'rev',
         'useminPrepare',<% if (includeRequireJS) { %>
         'requirejs',<% } %>
         'imagemin',
