@@ -171,9 +171,17 @@ module.exports = function (grunt) {
             }
         },<% } %>
         rev: {
-            dist: {
+            src: {
                 files: {
-                    src: ['.tmp/**/*.{js,css,png,jpg}']
+                    src: ['.tmp/**/*.{js,css}']
+                }
+            },
+            assets: {
+                files: {
+                    src: [
+                        '<%%= yeoman.app %>/images/**/*.{png,jpg,jpeg}',
+                        '<%%= yeoman.app %>/styles/fonts/**/*.*'
+                    ]
                 }
             }
         },
@@ -283,10 +291,11 @@ module.exports = function (grunt) {
         'test',
         'coffee',
         'compass:dist',
-        'rev',
+        'rev:src',
         'useminPrepare',<% if (includeRequireJS) { %>
         'requirejs',<% } %>
         'imagemin',
+        'rev:assets',
         'cssmin',
         'htmlmin',
         'concat',
