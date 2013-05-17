@@ -128,13 +128,15 @@ AppGenerator.prototype.mainStylesheet = function mainStylesheet() {
   if (this.compassBootstrap) {
     this.write('app/styles/main.scss', '$iconSpritePath: "../images/glyphicons-halflings.png";\n$iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";\n\n@import \'sass-bootstrap/lib/bootstrap\';\n\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n}');
   } else {
-    this.write('app/styles/main.css', 'body {\n    background: #fafafa;\n}\n\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n}');
+    this.write('app/styles/main.css', 'body {\n    background: #fafafa;\n    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;\n    color: #333;\n}\n\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n    font-size: 18px;\n    font-weight: 200;\n    line-height: 30px;\n    background-color: #eee;\n    border-radius: 6px;\n    padding: 60px;\n}\n\n.hero-unit h1 {\n    font-size: 60px;\n    line-height: 1;\n    letter-spacing: -1px;\n}');
+    this.write('app/styles/main.scss', 'body {\n    background: #fafafa;\n    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;\n    color: #333;\n}\n\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n    font-size: 18px;\n    font-weight: 200;\n    line-height: 30px;\n    background-color: #eee;\n    border-radius: 6px;\n    padding: 60px;\n}\n\n.hero-unit h1 {\n    font-size: 60px;\n    line-height: 1;\n    letter-spacing: -1px;\n}');
+    this.write('app/styles/main.sass', 'body\n    background: #fafafa\n    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif\n    color: #333\n\n.hero-unit\n    margin: 50px auto 0 auto\n    width: 300px\n    font-size: 18px\n    font-weight: 200\n    line-height: 30px\n    background-color: #eee\n    border-radius: 6px\n    padding: 60px\n\n.hero-unit h1\n    font-size: 60px\n    line-height: 1\n    letter-spacing: -1px');
   }
 };
 
 AppGenerator.prototype.writeIndex = function writeIndex() {
   // prepare default content text
-  var defaults = ['HTML5 Boilerplate', 'Twitter Bootstrap'];
+  var defaults = ['HTML5 Boilerplate'];
   var contentText = [
     '        <div class="container">',
     '            <div class="hero-unit">',
@@ -156,6 +158,10 @@ AppGenerator.prototype.writeIndex = function writeIndex() {
       sourceFileList: ['scripts/hello.js'],
       searchPath: '.tmp'
     });
+  }
+
+  if (this.compassBootstrap) {
+    defaults.push('Twitter Bootstrap');
   }
 
   if (this.compassBootstrap && !this.includeRequireJS) {
@@ -203,6 +209,9 @@ AppGenerator.prototype.writeIndex = function writeIndex() {
 
 // TODO(mklabs): to be put in a subgenerator like rjs:app
 AppGenerator.prototype.requirejs = function requirejs() {
+  var requiredScripts = (this.compassBootstrap) ? '[\'app\', \'jquery\', \'bootstrap\']' : '[\'app\', \'jquery\']';
+  var bootstrapPath = (this.compassBootstrap) ? '        bootstrap: \'vendor/bootstrap\'\n    },' : '    },';
+
   if (this.includeRequireJS) {
     this.indexFile = this.appendScripts(this.indexFile, 'scripts/main.js', ['bower_components/requirejs/require.js'], {
       'data-main': 'scripts/main'
@@ -221,8 +230,7 @@ AppGenerator.prototype.requirejs = function requirejs() {
       'require.config({',
       '    paths: {',
       '        jquery: \'../bower_components/jquery/jquery\',',
-      '        bootstrap: \'vendor/bootstrap\'',
-      '    },',
+      bootstrapPath,
       '    shim: {',
       '        bootstrap: {',
       '            deps: [\'jquery\'],',
@@ -231,7 +239,7 @@ AppGenerator.prototype.requirejs = function requirejs() {
       '    }',
       '});',
       '',
-      'require([\'app\', \'jquery\', \'bootstrap\'], function (app, $) {',
+      'require('+requiredScripts+', function (app, $) {',
       '    \'use strict\';',
       '    // use app here',
       '    console.log(app);',
