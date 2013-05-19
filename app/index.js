@@ -130,7 +130,6 @@ AppGenerator.prototype.mainStylesheet = function mainStylesheet() {
   } else {
     this.write('app/styles/main.css', 'body {\n    background: #fafafa;\n    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;\n    color: #333;\n}\n\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n    font-size: 18px;\n    font-weight: 200;\n    line-height: 30px;\n    background-color: #eee;\n    border-radius: 6px;\n    padding: 60px;\n}\n\n.hero-unit h1 {\n    font-size: 60px;\n    line-height: 1;\n    letter-spacing: -1px;\n}');
     this.write('app/styles/main.scss', 'body {\n    background: #fafafa;\n    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;\n    color: #333;\n}\n\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n    font-size: 18px;\n    font-weight: 200;\n    line-height: 30px;\n    background-color: #eee;\n    border-radius: 6px;\n    padding: 60px;\n}\n\n.hero-unit h1 {\n    font-size: 60px;\n    line-height: 1;\n    letter-spacing: -1px;\n}');
-    this.write('app/styles/main.sass', 'body\n    background: #fafafa\n    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif\n    color: #333\n\n.hero-unit\n    margin: 50px auto 0 auto\n    width: 300px\n    font-size: 18px\n    font-weight: 200\n    line-height: 30px\n    background-color: #eee\n    border-radius: 6px\n    padding: 60px\n\n.hero-unit h1\n    font-size: 60px\n    line-height: 1\n    letter-spacing: -1px');
   }
 };
 
