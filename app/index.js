@@ -54,13 +54,11 @@ AppGenerator.prototype.askFor = function askFor() {
     name: 'compassBootstrap',
     message: 'Would you like to include Twitter Bootstrap for Sass?',
     default: true,
-    warning: 'Yes: All Twitter Bootstrap files will be placed into the styles directory.'
   },
   {
     name: 'includeRequireJS',
     message: 'Would you like to include RequireJS (for AMD support)?',
     default: true,
-    warning: 'Yes: RequireJS will be placed into the JavaScript vendor directory.'
   }];
 
   this.prompt(prompts, function (err, props) {
@@ -72,6 +70,13 @@ AppGenerator.prototype.askFor = function askFor() {
     // we change a bit this way of doing to automatically do this in the self.prompt() method.
     this.compassBootstrap = props.compassBootstrap;
     this.includeRequireJS = props.includeRequireJS;
+
+    if (this.compassBootstrap) {
+      console.log('All Twitter Bootstrap files will be placed into the styles directory.');
+    }
+    if (this.includeRequireJS) {
+      console.log('RequireJS will be placed into the JavaScript vendor directory.');
+    }
 
     cb();
   }.bind(this));
