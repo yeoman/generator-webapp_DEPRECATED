@@ -126,7 +126,7 @@ AppGenerator.prototype.bootstrapJs = function bootstrapJs() {
 
 AppGenerator.prototype.mainStylesheet = function mainStylesheet() {
   if (this.compassBootstrap) {
-    this.write('app/styles/main.scss', '$iconSpritePath: "../images/glyphicons-halflings.png";\n$iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";\n\n@import \'sass-bootstrap/lib/bootstrap\';\n\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n}');
+    this.copy('main.scss', 'app/styles/main.scss');
   } else {
     this.copy('main.css', 'app/styles/main.css');
   }
