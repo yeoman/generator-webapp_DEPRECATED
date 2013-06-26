@@ -2,7 +2,7 @@ require.config({
     paths: {
         jquery: '../bower_components/jquery/jquery'<% if (compassBootstrap) { %>,
         bootstrap: 'vendor/bootstrap'<% } %>
-    }<% if (compassBootstrap) { %> ,
+    }<% if (compassBootstrap) { %>,
    shim: {
         bootstrap: {
             deps: ['jquery'],
