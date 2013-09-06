@@ -3,6 +3,7 @@ require.config({
         jquery: '../bower_components/jquery/jquery'<% if (compassBootstrap) { %>,
         bootstrapAffix: '../bower_components/sass-bootstrap/js/affix',
         bootstrapAlert: '../bower_components/sass-bootstrap/js/alert',
+        bootstrapDropdown: '../bower_components/sass-bootstrap/js/dropdown',
         bootstrapButton: '../bower_components/sass-bootstrap/js/button',
         bootstrapCarousel: '../bower_components/sass-bootstrap/js/carousel',
         bootstrapCollapse: '../bower_components/sass-bootstrap/js/collapse',
@@ -17,6 +18,9 @@ require.config({
             deps: ['jquery']
         },
         bootstrapAlert: {
+            deps: ['jquery']
+        },
+        bootstrapDropdown: {
             deps: ['jquery']
         },
         bootstrapButton: {
