@@ -87,12 +87,13 @@ module.exports = function (grunt) {
                     dot: true,
                     src: [
                         '.tmp',
+                        '.sass-cache',
                         '<%%= yeoman.dist %>/*',
                         '!<%%= yeoman.dist %>/.git*'
                     ]
                 }]
             },
-            server: '.tmp'
+            server: ['.tmp', '.sass-cache']
         },
         jshint: {
             options: {
