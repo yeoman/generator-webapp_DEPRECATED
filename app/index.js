@@ -8,14 +8,13 @@ var yeoman = require('yeoman-generator');
 var AppGenerator = module.exports = function Appgenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
+   // for hooks to resolve on mocha by default
+   if (!options['test-framework']) {
+      options['test-framework'] = 'mocha';
+   }
   // setup the test-framework property, Gruntfile template will need this
-  this.testFramework = options['test-framework'] || 'mocha';
+  this.testFramework = options['test-framework'];
   this.coffee = options.coffee;
-
-  // for hooks to resolve on mocha by default
-  if (!options['test-framework']) {
-    options['test-framework'] = 'mocha';
-  }
 
   // resolved to mocha by default (could be switched to jasmine for instance)
   this.hookFor('test-framework', { as: 'app' });
