@@ -435,10 +435,10 @@ module.exports = function (grunt) {
         'concat',
         'cssmin',
         'uglify',
-        'copy:dist',<% if (includeModernizr) { %>
-        'modernizr',<% } %>
+        'copy:dist',
         'rev',
-        'usemin'
+        'usemin',<% if (includeModernizr) { %>
+        'modernizr'<% } %>
     ]);
 
     grunt.registerTask('default', [
