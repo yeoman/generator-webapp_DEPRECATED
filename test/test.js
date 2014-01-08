@@ -45,6 +45,7 @@ describe('Webapp generator test', function () {
     });
 
     this.webapp.coffee = true;
+    this.webapp.requirejs = true;
     this.webapp.options['skip-install'] = true;
     this.webapp.run({}, function () {
       helpers.assertFiles(expected);
@@ -91,7 +92,7 @@ describe('Webapp generator test', function () {
     ];
 
     helpers.mockPrompt(this.webapp, {
-      features: ['includeCompass']
+      features: ['includeCompass','requirejs']
     });
 
     this.webapp.options['skip-install'] = true;
