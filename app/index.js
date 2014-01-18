@@ -12,6 +12,7 @@ var AppGenerator = module.exports = function Appgenerator(args, options, config)
   // setup the test-framework property, Gruntfile template will need this
   this.testFramework = options['test-framework'] || 'mocha';
   this.coffee = options.coffee;
+  this.requirejs = options.requirejs;
 
   // for hooks to resolve on mocha by default
   options['test-framework'] = this.testFramework;
@@ -121,7 +122,7 @@ AppGenerator.prototype.writeIndex = function writeIndex() {
   this.indexFile = this.engine(this.indexFile, this);
 
   // wire Twitter Bootstrap plugins
-  if (this.includeBootstrap) {
+  if (this.includeBootstrap && !this.requirejs) {
     var bs = 'bower_components/' + (this.includeCompass ? 'sass-' : '') + 'bootstrap/js/';
     this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', [
       bs + 'affix.js',
@@ -155,6 +156,12 @@ AppGenerator.prototype.app = function app() {
   this.mkdir('app/images');
   this.write('app/index.html', this.indexFile);
 
+  if (!this.requirejs) {
+     this.indexFile = this.appendScripts(this.indexFile, 'scripts/main.js', [
+       'scripts/main.js'
+     ]);
+   }
+
   if (this.coffee) {
     this.write(
       'app/scripts/main.coffee',
@@ -164,6 +171,31 @@ AppGenerator.prototype.app = function app() {
   else {
     this.write('app/scripts/main.js', 'console.log(\'\\\'Allo \\\'Allo!\');');
   }
+};
+
+
+AppGenerator.prototype.requirejs = function requirejs() {
+ if (!this.requirejs) {
+   return;
+ }
+
+ this.indexFile = this.appendScripts(this.indexFile, 'scripts/main.js', ['bower_components/requirejs/require.js'], {
+   'data-main': 'scripts/main'
+ });
+
+ // add a basic amd module
+ this.write('app/scripts/app.js', [
+   '/*global define */',
+   'define([], function () {',
+   '    \'use strict\';\n',
+   '    return \'\\\'Allo \\\'Allo!\';',
+   '});'
+ ].join('\n'));
+
+  if (!this.requirejs) {
+    this.template('require_main.js', 'app/scripts/main.js');
+  }
+
 };
 
 AppGenerator.prototype.install = function () {

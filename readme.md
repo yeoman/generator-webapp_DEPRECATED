@@ -61,6 +61,10 @@ Note: `grunt server` was previously used for previewing in earlier versions of t
 
   Add support for [CoffeeScript](http://coffeescript.org/).
 
+* `--requirejs`
+
+  Add support for AMD-loading via RequireJS
+
 
 ## Contribute
 
