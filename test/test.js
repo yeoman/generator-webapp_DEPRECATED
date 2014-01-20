@@ -31,13 +31,34 @@ describe('Webapp generator test', function () {
     var expected = [
       ['bower.json', /"name": "temp"/],
       ['package.json', /"name": "temp"/],
-      ['Gruntfile.js', /coffee:/],
+      'Gruntfile.js',
+      'grunt/autoprefixer.js',
+      'grunt/bower-install.js',
+      'grunt/clean.js',
+      'grunt/coffee.js',
+      'grunt/compass.js',
+      'grunt/concurrent.js',
+      'grunt/connect.js',
+      'grunt/copy.js',
+      'grunt/htmlmin.js',
+      'grunt/jshint.js',
+      'grunt/mocha.js',
+      'grunt/rev.js',
+      'grunt/svgmin.js',
+      'grunt/usemin.js',
+      'grunt/useminPrepare.js',
+      'grunt/watch.js',
       'app/404.html',
       'app/favicon.ico',
       'app/robots.txt',
       'app/index.html',
       'app/scripts/main.coffee',
       'app/styles/main.scss'
+    ];
+
+    var notExpected = [
+      'grunt/jasmine.js',
+      'grunt/modernizr.js'
     ];
 
     helpers.mockPrompt(this.webapp, {
@@ -48,6 +69,7 @@ describe('Webapp generator test', function () {
     this.webapp.options['skip-install'] = true;
     this.webapp.run({}, function () {
       helpers.assertFiles(expected);
+      helpers.assertNoFile(notExpected);
       done();
     });
   });
@@ -57,12 +79,32 @@ describe('Webapp generator test', function () {
       ['bower.json', /"name": "temp"/],
       ['package.json', /"name": "temp"/],
       'Gruntfile.js',
+      'grunt/autoprefixer.js',
+      'grunt/bower-install.js',
+      'grunt/clean.js',
+      'grunt/compass.js',
+      'grunt/concurrent.js',
+      'grunt/connect.js',
+      'grunt/copy.js',
+      'grunt/htmlmin.js',
+      'grunt/jshint.js',
+      'grunt/mocha.js',
+      'grunt/rev.js',
+      'grunt/svgmin.js',
+      'grunt/usemin.js',
+      'grunt/useminPrepare.js',
+      'grunt/watch.js',
       'app/404.html',
       'app/favicon.ico',
       'app/robots.txt',
       'app/index.html',
       'app/scripts/main.js',
       'app/styles/main.scss'
+    ];
+    var notExpected = [
+      'grunt/coffee.js',
+      'grunt/jasmine.js',
+      'grunt/modernizr.js'
     ];
 
     helpers.mockPrompt(this.webapp, {
@@ -73,6 +115,7 @@ describe('Webapp generator test', function () {
     this.webapp.options['skip-install'] = true;
     this.webapp.run({}, function () {
       helpers.assertFiles(expected);
+      helpers.assertNoFile(notExpected);
       done();
     });
   });
@@ -82,6 +125,21 @@ describe('Webapp generator test', function () {
       ['bower.json', /"name": "temp"/],
       ['package.json', /"name": "temp"/],
       'Gruntfile.js',
+      'grunt/autoprefixer.js',
+      'grunt/bower-install.js',
+      'grunt/clean.js',
+      'grunt/compass.js',
+      'grunt/concurrent.js',
+      'grunt/connect.js',
+      'grunt/copy.js',
+      'grunt/htmlmin.js',
+      'grunt/jshint.js',
+      'grunt/mocha.js',
+      'grunt/rev.js',
+      'grunt/svgmin.js',
+      'grunt/usemin.js',
+      'grunt/useminPrepare.js',
+      'grunt/watch.js',
       'app/404.html',
       'app/favicon.ico',
       'app/robots.txt',
@@ -89,7 +147,12 @@ describe('Webapp generator test', function () {
       'app/scripts/main.js',
       'app/styles/main.scss'
     ];
-
+    var notExpected = [
+      'grunt/coffee.js',
+      'grunt/jasmine.js',
+      'grunt/modernizr.js'
+    ];
+    
     helpers.mockPrompt(this.webapp, {
       features: ['includeCompass']
     });
@@ -97,6 +160,7 @@ describe('Webapp generator test', function () {
     this.webapp.options['skip-install'] = true;
     this.webapp.run({}, function () {
       helpers.assertFiles(expected);
+      helpers.assertNoFile(notExpected);
       done();
     });
   });

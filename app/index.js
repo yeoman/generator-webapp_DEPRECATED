@@ -79,6 +79,35 @@ AppGenerator.prototype.askFor = function askFor() {
 
 AppGenerator.prototype.gruntfile = function gruntfile() {
   this.template('Gruntfile.js');
+  this.template('grunt/autoprefixer.js');
+  this.template('grunt/bower-install.js');
+  this.template('grunt/clean.js');
+  this.template('grunt/concurrent.js');
+  this.template('grunt/connect.js');
+  this.template('grunt/copy.js');
+  this.template('grunt/htmlmin.js');
+  this.template('grunt/imagemin.js');
+  this.template('grunt/jshint.js');
+  this.template('grunt/rev.js');
+  this.template('grunt/svgmin.js');
+  this.template('grunt/usemin.js');
+  this.template('grunt/useminPrepare.js');
+  this.template('grunt/watch.js');
+  
+  if (this.testFramework === 'mocha'){
+    this.template('grunt/mocha.js');
+  }else if(this.testFramework === 'jasmine'){
+    this.template('grunt/jasmine.js');
+  }
+  if(this.coffee){
+    this.template('grunt/coffee.js');
+  }
+  if(this.includeCompass){
+    this.template('grunt/compass.js');
+  }
+  if(this.includeModernizr){
+    this.template('grunt/modernizr.js');
+  }
 };
 
 AppGenerator.prototype.packageJSON = function packageJSON() {
