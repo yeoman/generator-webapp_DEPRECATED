@@ -39,8 +39,10 @@ module.exports = function (grunt) {
         }
     }
 
+	var configsPath = grunt.file.readJSON('.gruntrc').directory;
+
     // Define the configuration for all the tasks
-    grunt.util._.extend(config, loadConfig('./grunt/'));
+    grunt.util._.extend(config, loadConfig(configsPath));
 
     grunt.initConfig(config);
 

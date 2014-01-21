@@ -30,6 +30,7 @@ var AppGenerator = module.exports = function Appgenerator(args, options, config)
   this.options = options;
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+  this.gruntpath = JSON.parse(this.readFileAsString(path.join(this.sourceRoot(), 'gruntrc'))).directory;
 };
 
 util.inherits(AppGenerator, yeoman.generators.Base);
@@ -78,35 +79,36 @@ AppGenerator.prototype.askFor = function askFor() {
 };
 
 AppGenerator.prototype.gruntfile = function gruntfile() {
+  this.copy('gruntrc', '.gruntrc');
   this.template('Gruntfile.js');
-  this.template('grunt/autoprefixer.js');
-  this.template('grunt/bower-install.js');
-  this.template('grunt/clean.js');
-  this.template('grunt/concurrent.js');
-  this.template('grunt/connect.js');
-  this.template('grunt/copy.js');
-  this.template('grunt/htmlmin.js');
-  this.template('grunt/imagemin.js');
-  this.template('grunt/jshint.js');
-  this.template('grunt/rev.js');
-  this.template('grunt/svgmin.js');
-  this.template('grunt/usemin.js');
-  this.template('grunt/useminPrepare.js');
-  this.template('grunt/watch.js');
-  
+  this.template(this.gruntpath+'/autoprefixer.js');
+  this.template(this.gruntpath+'/bower-install.js');
+  this.template(this.gruntpath+'/clean.js');
+  this.template(this.gruntpath+'/concurrent.js');
+  this.template(this.gruntpath+'/connect.js');
+  this.template(this.gruntpath+'/copy.js');
+  this.template(this.gruntpath+'/htmlmin.js');
+  this.template(this.gruntpath+'/imagemin.js');
+  this.template(this.gruntpath+'/jshint.js');
+  this.template(this.gruntpath+'/rev.js');
+  this.template(this.gruntpath+'/svgmin.js');
+  this.template(this.gruntpath+'/usemin.js');
+  this.template(this.gruntpath+'/useminPrepare.js');
+  this.template(this.gruntpath+'/watch.js');
+
   if (this.testFramework === 'mocha'){
-    this.template('grunt/mocha.js');
+    this.template(this.gruntpath+'/mocha.js');
   }else if(this.testFramework === 'jasmine'){
-    this.template('grunt/jasmine.js');
+    this.template(this.gruntpath+'/jasmine.js');
   }
   if(this.coffee){
-    this.template('grunt/coffee.js');
+    this.template(this.gruntpath+'/coffee.js');
   }
   if(this.includeCompass){
-    this.template('grunt/compass.js');
+    this.template(this.gruntpath+'/compass.js');
   }
   if(this.includeModernizr){
-    this.template('grunt/modernizr.js');
+    this.template(this.gruntpath+'/modernizr.js');
   }
 };
 
