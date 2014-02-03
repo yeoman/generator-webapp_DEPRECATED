@@ -4,6 +4,9 @@ var path = require('path');
 var spawn = require('child_process').spawn;
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
+var shelljs = require('shelljs');
+
+var bundle = false;
 
 
 var AppGenerator = module.exports = function Appgenerator(args, options, config) {
@@ -77,8 +80,28 @@ AppGenerator.prototype.askFor = function askFor() {
   }.bind(this));
 };
 
+AppGenerator.prototype.rubyDependencies = function rubyDependencies() {
+  if (this.includeCompass) {
+    var dependenciesInstalled = ['bundle', 'ruby'].every(function (depend) {
+      return shelljs.which(depend);
+    });
+
+    if (!dependenciesInstalled) {
+      console.log(chalk.red('Looks like you\'re missing some dependencies.') +
+        '\nMake sure ' + chalk.yellow('Ruby') + ' and the ' + chalk.yellow('Bundler') + ' gem are installed, then run again.');
+      shelljs.exit(1);
+    }
+  }
+}
+
 AppGenerator.prototype.gruntfile = function gruntfile() {
   this.template('Gruntfile.js');
+};
+
+AppGenerator.prototype.gemfile = function gemfile() {
+  if (this.includeCompass) {
+    this.copy('Gemfile');
+  }
 };
 
 AppGenerator.prototype.packageJSON = function packageJSON() {
@@ -165,6 +188,26 @@ AppGenerator.prototype.app = function app() {
     this.write('app/scripts/main.js', 'console.log(\'\\\'Allo \\\'Allo!\');');
   }
 };
+
+AppGenerator.prototype.bundle = function bundle() {
+  if (this.includeCompass) {
+    var execComplete;
+
+    console.log('\n\nI\'m all done. Running ' + chalk.yellow.bold('bundle install') + ' for you to install the required gems. If this fails, try running the command yourself.\n\n');
+
+    this.conflicter.resolve(function(err) {
+      if (err) {
+        return this.emit('error', err);
+      }
+
+      execComplete = shelljs.exec('bundle install');
+
+      if (execComplete.code === 0) {
+        bundle = true;
+      }
+    });
+  }
+}
 
 AppGenerator.prototype.install = function () {
   if (this.options['skip-install']) {
