@@ -6,8 +6,6 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var shelljs = require('shelljs');
 
-var bundle = false;
-
 
 var AppGenerator = module.exports = function Appgenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -191,21 +189,8 @@ AppGenerator.prototype.app = function app() {
 
 AppGenerator.prototype.bundle = function bundle() {
   if (this.includeCompass) {
-    var execComplete;
-
     console.log('\n\nI\'m all done. Running ' + chalk.yellow.bold('bundle install') + ' for you to install the required gems. If this fails, try running the command yourself.\n\n');
-
-    this.conflicter.resolve(function(err) {
-      if (err) {
-        return this.emit('error', err);
-      }
-
-      execComplete = shelljs.exec('bundle install');
-
-      if (execComplete.code === 0) {
-        bundle = true;
-      }
-    });
+    shelljs.exec('bundle install');
   }
 }
 
