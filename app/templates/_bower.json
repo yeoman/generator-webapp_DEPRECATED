@@ -3,7 +3,8 @@
   "private": true,
   "dependencies": {<% if (includeBootstrap) { if (includeCompass) { %>
     "bootstrap-sass": "git://github.com/twbs/bootstrap-sass.git#v3.1.0",<% } else { %>
-    "bootstrap": "~3.0.3",<% }} if (includeModernizr) { %>
+    "bootstrap": "~3.0.3",<% }} else { %>
+    "normalize-css": "~3.0.0",<% } if (includeModernizr) { %>
     "modernizr": "~2.6.2",<% } %>
     "jquery": "~1.11.0"
   },
