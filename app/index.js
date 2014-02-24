@@ -4,7 +4,8 @@ var path = require('path');
 var spawn = require('child_process').spawn;
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
-
+var js2coffee = require('js2coffee');
+var beautify = require('js-beautify').js_beautify;
 
 var AppGenerator = module.exports = function Appgenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -12,9 +13,34 @@ var AppGenerator = module.exports = function Appgenerator(args, options, config)
   // setup the test-framework property, Gruntfile template will need this
   this.testFramework = options['test-framework'] || 'mocha';
   this.coffee = options.coffee;
+  this.splitConfigs = options['split-configs'];
 
   // for hooks to resolve on mocha by default
   options['test-framework'] = this.testFramework;
+
+  this.plugins = {
+      'autoprefixer': true,
+      'bowerInstall': true,
+      'clean': true,
+      'coffee': this.coffee,
+      'concurrent': true,
+      'config' : true,
+      'connect': true,
+      'copy': true,
+      'htmlmin': true,
+      'imagemin': true,
+      'jasmine': false,
+      'jshint': true,
+      'mocha': false,
+      'modernizr': false,
+      'rev': true,
+      'sass': true,
+      'svgmin': true,
+      'usemin': true,
+      'useminPrepare': true,
+      'watch': true
+  };
+  this.plugins[this.testFramework] = true;
 
   // resolved to mocha by default (could be switched to jasmine for instance)
   this.hookFor('test-framework', {
@@ -84,11 +110,34 @@ AppGenerator.prototype.askFor = function askFor() {
     this.includeLibSass = answers.libsass;
     this.includeRubySass = !(answers.libsass);
 
+    this.plugins.sass = this.includeSass;
+    this.plugins.modernizr = this.includeModernizr;
+
     cb();
   }.bind(this));
 };
 
 AppGenerator.prototype.gruntfile = function gruntfile() {
+  this.configs = {};
+  for (var pluginName in this.plugins){
+    if (this.plugins[pluginName]){
+      var configTpl = this.read('config/_'+pluginName+'.js', 'utf8');
+      var config = this.engine(configTpl, this);
+      this.configs[pluginName] = config;
+      if(this.splitConfigs){
+        var moduleTpl = this.read('_module.js', 'utf8');
+        config = this.engine(moduleTpl, {taskConfig: config});
+        if (this.coffee){
+          config = js2coffee.build(config, {indent: "    "});
+          this.write('config/' + pluginName + '.coffee', config);
+        }
+        else {
+          config = beautify(config, {indent_size: 2});
+          this.write('config/' + pluginName + '.js', config);
+        }
+      }
+    }
+  }
   this.template('Gruntfile.js');
 };
 
