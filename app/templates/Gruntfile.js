@@ -354,11 +354,17 @@ module.exports = function (grunt) {
                         '.htaccess',
                         'images/{,*/}*.webp',
                         '{,*/}*.html',
-                        'styles/fonts/{,*/}*.*'<% if (includeBootstrap) { %>,<% if (includeCompass) { %>
-                        'bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*.*'<% } else { %>
-                        'bower_components/bootstrap/dist/fonts/*.*'<% } %><% } %>
+                        'styles/fonts/{,*/}*.*'
                     ]
-                }]
+                }<% if (includeBootstrap) { %>, {
+                    expand: true,<% if (includeCompass) { %>
+                    cwd: '<%%= config.app %>',
+                    dest: '<%%= config.dist %>',
+                    src: 'bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*.*'<% } else { %>
+                    cwd: '<%%= config.app %>/bower_components/bootstrap/dist',
+                    dest: '<%%= config.dist %>',
+                    src: 'fonts/*.*'<% } %>
+                }<% } %>]
             },
             styles: {
                 expand: true,
