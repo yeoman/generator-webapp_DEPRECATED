@@ -1,4 +1,4 @@
-# Web app generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-webapp.png?branch=master)](http://travis-ci.org/yeoman/generator-webapp) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png?1)](http://gruntjs.com/)
+# Web app generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-webapp.svg?branch=master)](http://travis-ci.org/yeoman/generator-webapp) [![NPM version](https://badge.fury.io/js/generator-webapp.svg)](http://npmjs.org/generator-webapp) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png?1)](http://gruntjs.com/)
 
 [Yeoman](http://yeoman.io) generator that scaffolds out a front-end web app.
 
