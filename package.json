@@ -29,7 +29,9 @@
   "dependencies": {
     "yeoman-generator": "~0.16.0",
     "cheerio": "~0.13.0",
-    "chalk": "~0.4.0"
+    "chalk": "~0.4.0",
+    "js2coffee": "~0.2.7",
+    "js-beautify": "~1.4.2"
   },
   "peerDependencies": {
     "yo": ">=1.0.0",

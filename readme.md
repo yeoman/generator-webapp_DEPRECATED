@@ -15,6 +15,7 @@
 * Mocha Unit Testing with PhantomJS
 * Optional - Bootstrap for Sass
 * Optional - Leaner Modernizr builds *(new)*
+* Optional - Split your Grunt task configuration into several files *(new)*
 
 For more information on what `generator-webapp` can do for you, take a look at the [Grunt tasks](https://github.com/yeoman/generator-webapp/blob/master/app/templates/_package.json) used in our `package.json`.
 
@@ -64,6 +65,10 @@ Note: `grunt server` was previously used for previewing in earlier versions of t
 * `--coffee`
 
   Add support for [CoffeeScript](http://coffeescript.org/).
+
+* `--split-configs`
+
+  Splits your Grunt task configuration into several files.
 
 
 ## Contribute
