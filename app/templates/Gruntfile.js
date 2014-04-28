@@ -1,19 +1,20 @@
-// Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
+// Generated on <%= (new Date).toISOString().split('T')[0] %> using
+// <%= pkg.name %> <%= pkg.version %>
 'use strict';
 
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
-// use this if you want to recursively match all subfolders:
+// If you want to recursively match all subfolders, use:
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
 
-    // Load grunt tasks automatically
-    require('load-grunt-tasks')(grunt);
-
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
+
+    // Load grunt tasks automatically
+    require('load-grunt-tasks')(grunt);
 
     // Configurable paths
     var config = {
@@ -190,14 +191,6 @@ module.exports = function (grunt) {
 
         // Compiles Sass to CSS and generates necessary files if requested
         sass: {
-            options: {<% if (includeLibSass) { %>
-                includePaths: [
-                    'bower_components'
-                ]<% } if (includeRubySass) { %>
-                loadPath: [
-                    'bower_components'
-                ]<% } %>
-            },
             dist: {
                 files: [{
                     expand: true,
@@ -323,9 +316,9 @@ module.exports = function (grunt) {
             }
         },
 
-        // By default, your `index.html`'s <!-- Usemin block --> will take care of
-        // minification. These next options are pre-configured if you do not wish
-        // to use the Usemin blocks.
+        // By default, your `index.html`'s <!-- Usemin block --> will take care
+        // of minification. These next options are pre-configured if you do not
+        // wish to use the Usemin blocks.
         // cssmin: {
         //     dist: {
         //         files: {
