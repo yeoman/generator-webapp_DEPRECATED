@@ -415,6 +415,9 @@ module.exports = function (grunt) {
 
 
     grunt.registerTask('serve', function (target) {
+        if (grunt.option('allow-remote')) {
+            grunt.config.set('connect.options.hostname', '0.0.0.0');
+        }
         if (target === 'dist') {
             return grunt.task.run(['build', 'connect:dist:keepalive']);
         }
