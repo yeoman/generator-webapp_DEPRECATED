@@ -45,15 +45,15 @@ module.exports = yeoman.generators.Base.extend({
       choices: [{
         name: 'Bootstrap',
         value: 'includeBootstrap',
-        checked: true
+        checked: false
       },{
         name: 'Sass',
         value: 'includeSass',
-        checked: false
+        checked: true
       },{
         name: 'Modernizr',
         value: 'includeModernizr',
-        checked: false
+        checked: true
       }]
     }, {
       when: function (answers) {
@@ -133,6 +133,7 @@ module.exports = yeoman.generators.Base.extend({
       this.socialDesc = answers.socialDesc;
       this.twitter = answers.twitter;
       this.tweet = answers.tweet;
+      this.url = answers.url;
 
       done();
     }.bind(this));
@@ -172,9 +173,10 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   stylesheets: function () {
+    var t = this;
     function css(file){
-      var css = file + '.' + (this.includeSass ? 's' : '') + 'css';
-      this.template(css, 'app/styles/' + css);
+      var css = file + '.' + (t.includeSass ? 's' : '') + 'css';
+      t.template(css, 'app/styles/' + css);
     }
     css('main');
     css('base');
