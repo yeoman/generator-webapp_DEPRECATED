@@ -1,2 +1,5 @@
 node_modules
 .tmp
+.ftpauth
+*.sublime-project
+*.sublime-workspace
