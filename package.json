@@ -1,10 +1,10 @@
 {
-  "name": "generator-webapp",
+  "name": "generator-distilled",
   "version": "0.5.0-1",
-  "description": "Scaffold out a front-end web app",
+  "description": "Scaffold out a front-end web app. Forked from generator-webapp.",
   "license": "BSD",
-  "repository": "yeoman/generator-webapp",
-  "author": "The Yeoman Team",
+  "repository": "yeoman/generator-distilled",
+  "author": "Richard Westenra",
   "main": "app/index.js",
   "engines": {
     "node": ">=0.10.0",
