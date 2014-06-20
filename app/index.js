@@ -174,13 +174,14 @@ module.exports = yeoman.generators.Base.extend({
 
   stylesheets: function () {
     var t = this;
-    function css(file){
+    function css(file,prefix){
+      prefix = prefix || '';
       var css = file + '.' + (t.includeSass ? 's' : '') + 'css';
-      t.template(css, 'app/styles/' + css);
+      t.template(css, 'app/styles/' + u + css);
     }
     css('main');
-    css('base');
-    css('social');
+    css('base','_');
+    css('social','_');
   },
 
   writeIndex: function () {

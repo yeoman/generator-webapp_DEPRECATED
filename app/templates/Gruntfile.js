@@ -424,8 +424,8 @@ module.exports = function (grunt) {
         files: [ // Enable Dynamic Expansion, Src matches are relative to this path, Actual Pattern(s) to match
           {
             expand: true,
-              // cwd: 'test',
-              src: ['<%= config.dist %>','<%= config.dist %>/**/*']
+            // cwd: 'test',
+            src: ['<%= config.dist %>','<%= config.dist %>/**/*']
           }
         ]
       }
@@ -470,6 +470,8 @@ module.exports = function (grunt) {
       ]
     }
   });
+
+  grunt.task.run('notify_hooks');
 
 
   grunt.registerTask('serve', 'start the server and preview your app, --allow-remote for remote access', function (target) {
