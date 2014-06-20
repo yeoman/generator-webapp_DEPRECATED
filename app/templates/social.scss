@@ -1,0 +1,65 @@
+//--- Social icons etc ---//
+.addthis-smartlayers {
+    position: relative;
+    z-index: 9999;
+}
+.close {
+    cursor:pointer;
+    position:absolute;
+    top:12px;
+    right:12px;
+    display:block;
+    $d: 20px;
+    outline: none;
+    color: $c_primary;
+    text-decoration: none;
+    font-size: 2em;
+    line-height: $d;
+    width:$d;
+    height:$d;
+    &:hover {
+        color: $c_primary;
+    }
+}
+
+#embed {
+    width:100%;
+    height:190px;
+    left: 0;
+    bottom:-200px;
+    background:#f8f8f8;
+    -moz-box-shadow:0 0 10px rgba(0,0,0,0.2);
+    -webkit-box-shadow:0 0 10px rgba(0,0,0,0.2);
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+    border-top:5px solid #555;
+    position:fixed;
+    text-align:center;
+    z-index: 999999;
+	@media only screen and (min-width: $m_medium) {
+        width:600px;
+        height:190px;
+        left:50%;
+        margin-left:-300px;
+    }
+    h5 {
+        font-weight:bold;
+        font-size:22px;
+        margin:15px;
+        color:#333;
+    }
+    textarea {
+        width:90%;
+        border:1px #999 solid;
+        color:#111;
+        font-size:11px;
+        font-family:monospace;
+        -moz-border-radius:3px;
+        -webkit-border-radius:3px;
+        border-radius:3px;
+        padding:5px;
+        height:90px;
+        @media only screen and (min-width: $m_medium) {
+            width:450px;
+        }
+    }
+}

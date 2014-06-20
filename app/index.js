@@ -171,9 +171,14 @@ module.exports = yeoman.generators.Base.extend({
     this.directory('app');
   },
 
-  mainStylesheet: function () {
-    var css = 'main.' + (this.includeSass ? 's' : '') + 'css';
-    this.template(css, 'app/styles/' + css);
+  stylesheets: function () {
+    function css(file){
+      var css = file + '.' + (this.includeSass ? 's' : '') + 'css';
+      this.template(css, 'app/styles/' + css);
+    }
+    css('main');
+    css('base');
+    css('social');
   },
 
   writeIndex: function () {
@@ -231,7 +236,7 @@ module.exports = yeoman.generators.Base.extend({
       );
     }
     else {
-      this.write('app/scripts/main.js', 'console.log(\'\\\'Allo \\\'Allo!\');');
+      this.template('main.js','app/scripts/main.js');
     }
   },
 
