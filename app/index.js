@@ -78,6 +78,34 @@ module.exports = yeoman.generators.Base.extend({
     }, {
       name: 'ftpPassword',
       message: 'What is the ftp password?'
+    }, {
+      name: 'title',
+      message: 'What is the page meta title?',
+      default: 'nbed_metaTitle'
+    }, {
+      name: 'socialTitle',
+      message: 'What is the page social/opengraph title?',
+      default: 'nbed_socialTitle'
+    }, {
+      name: 'desc',
+      message: 'What is the page meta description?',
+      default: 'nbed_desc'
+    }, {
+      name: 'socialDesc',
+      message: 'What is the page social/opengraph description?',
+      default: 'nbed_socialDesc'
+    }, {
+      name: 'twitter',
+      message: 'What is the client\'s twitter handle?',
+      default: 'nbed_twitter'
+    }, {
+      name: 'tweet',
+      message: 'What is the tweet text?',
+      default: 'nbed_tweet'
+    }, {
+      name: 'url',
+      message: 'What is the page URL? (include trailing slash)',
+      default: 'http://nbed_url/'
     }];
 
     this.prompt(prompts, function (answers) {
@@ -97,6 +125,14 @@ module.exports = yeoman.generators.Base.extend({
       this.ftpHost = answers.ftpHost;
       this.ftpUsername = answers.ftpUsername;
       this.ftpPassword = answers.ftpPassword;
+
+      this.title = answers.title;
+      this.socialTitle = answers.socialTitle;
+      this.desc = answers.desc;
+      this.socialDesc = answers.socialDesc;
+      this.socialDesc = answers.socialDesc;
+      this.twitter = answers.twitter;
+      this.tweet = answers.tweet;
 
       done();
     }.bind(this));
