@@ -19,7 +19,8 @@ module.exports = function (grunt) {
   // Configurable paths
   var config = {
     app: 'app',
-    dist: 'dist'
+    dist: 'dist',
+    dest: '/mash-tun.net/<%= clientName %>/<%= appname %>/'
   };
 
   // Define the configuration for all the tasks
@@ -221,7 +222,7 @@ module.exports = function (grunt) {
     // Add vendor prefixed styles
     autoprefixer: {
       options: {
-        browsers: ['last 1 version']
+        browsers: ['last 10 versions']
       },
       dist: {
         files: [{
@@ -237,10 +238,12 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         ignorePath: new RegExp('^<%%= config.app %>/|../'),
-        src: ['<%%= config.app %>/index.html']<% if (includeBootstrap) { %>,<% if (includeSass) { %>
-        exclude: ['bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap.js']<% } else { %>
-        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']<% } } %>
-      }<% if (includeSass) { %>,
+        src: ['<%%= config.app %>/index.html'],<% if (includeBootstrap) { %><% if (includeSass) { %>
+        exclude: ['bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap.js','bower_components/respond/']<% } else { %>
+        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js','bower_components/respond/']
+      <% } } else { %>
+        exclude: ['bower_components/respond/']
+      <% } %>}<% if (includeSass) { %>,
       sass: {
         src: ['<%%= config.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
@@ -364,7 +367,8 @@ module.exports = function (grunt) {
             '.htaccess',
             'images/{,*/}*.webp',
             '{,*/}*.html',
-            'styles/fonts/{,*/}*.*'
+            'styles/fonts/{,*/}*.*',
+            'social/{,*/}*.*'
           ]
         }<% if (includeBootstrap) { %>, {
           expand: true,
@@ -407,6 +411,44 @@ module.exports = function (grunt) {
         uglify: true
       }
     },<% } %>
+
+    /* jshint camelcase:false */
+    ftp_push: {
+      your_target: {
+        options: {
+          authKey: 'ftphost',
+          host: '<%= ftpHost %>',
+          // port: 21,
+          dest: '<%= config.dest %>'
+        },
+        files: [ // Enable Dynamic Expansion, Src matches are relative to this path, Actual Pattern(s) to match
+          {
+            expand: true,
+              // cwd: 'test',
+              src: ['<%= config.dist %>','<%= config.dist %>/**/*']
+          }
+        ]
+      }
+    },
+
+    notify_hooks: {
+      options: {
+        enabled: true,
+        max_jshint_notifications: 5, // maximum number of notifications from jshint output
+      }
+    },
+    notify: {
+      build: {
+        options: {
+          message: 'Build complete'
+        }
+      },
+      deploy: {
+        options: {
+          message: 'Deployment complete'
+        }
+      }
+    },
 
     // Run some tasks in parallel to speed up build process
     concurrent: {
@@ -482,7 +524,14 @@ module.exports = function (grunt) {
     'modernizr',<% } %>
     'rev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'notify:build'
+  ]);
+
+  grunt.registerTask('deploy', [
+    'default',
+    'ftp_push',
+    'notify:deploy'
   ]);
 
   grunt.registerTask('default', [

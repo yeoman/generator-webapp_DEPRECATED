@@ -65,6 +65,19 @@ module.exports = yeoman.generators.Base.extend({
       message: 'Would you like to use libsass? Read up more at \n' +
         chalk.green('https://github.com/andrew/node-sass#node-sass'),
       default: false
+    }, {
+      name: 'clientName',
+      message: 'What is the client directory name?',
+      default: '0distilled'
+    }, {
+      name: 'ftpHost',
+      message: 'What is the ftp host name?'
+    }, {
+      name: 'ftpUsername',
+      message: 'What is the ftp username?'
+    }, {
+      name: 'ftpPassword',
+      message: 'What is the ftp password?'
     }];
 
     this.prompt(prompts, function (answers) {
@@ -80,6 +93,10 @@ module.exports = yeoman.generators.Base.extend({
 
       this.includeLibSass = answers.libsass;
       this.includeRubySass = !answers.libsass;
+      this.clientName = answers.clientName;
+      this.ftpHost = answers.ftpHost;
+      this.ftpUsername = answers.ftpUsername;
+      this.ftpPassword = answers.ftpPassword;
 
       done();
     }.bind(this));
@@ -96,6 +113,10 @@ module.exports = yeoman.generators.Base.extend({
   git: function () {
     this.template('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
+  },
+
+  ftpauth: function () {
+    this.template('ftpauth', '.ftpauth');
   },
 
   bower: function () {
@@ -164,6 +185,7 @@ module.exports = yeoman.generators.Base.extend({
     this.mkdir('app/scripts');
     this.mkdir('app/styles');
     this.mkdir('app/images');
+    this.mkdir('app/social');
     this.write('app/index.html', this.indexFile);
 
     if (this.coffee) {

@@ -5,7 +5,8 @@
     "bootstrap-sass-official": "~3.1.0",<% } else { %>
     "bootstrap": "~3.1.1",<% }} if (includeModernizr) { %>
     "modernizr": "~2.8.2",<% } %>
-    "jquery": "~1.11.1"
+    "jquery": "~1.11.1",
+    "respond": "~1.4.2"
   },
   "devDependencies": {}
 }
