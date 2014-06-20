@@ -5,8 +5,6 @@
     <title><%= title %></title>
     <meta name="description" content="<%= desc %>">
     <meta name="viewport" content="width=device-width">
-    <link rel="shortcut icon" href="/favicon.ico">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <% if (includeBootstrap && !includeSass) { %><link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"><% } %>
@@ -30,6 +28,7 @@
     <meta name="twitter:site" content="<%= twitter %>">
     <meta name="twitter:title" content="<%= socialTitle %>">
     <meta name="twitter:description" content="<%= socialDesc %>">
+    <!-- NBED check png/jpg filetypes: -->
     <meta property="og:image" content="<%= url %>social/twitter.png" />
     <script type="text/javascript">
     var addthis_share = addthis_share || {};
@@ -78,7 +77,7 @@
           <li><a href="#">About</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
-        <h3 class="text-muted"><%= appname %></h3>
+        <h3 class="text-muted"><%= title %></h3>
       </div>
 
       <div class="jumbotron">
@@ -111,16 +110,25 @@
 
     </div>
     <% } else { %>
-    <div class="hero-unit">
-      <h1>'Allo, 'Allo!</h1>
-      <p>You now have</p>
-      <ul>
-      <li>HTML5 Boilerplate</li>
-      <% if (includeSass) { %><li>Sass</li><% } %>
-      <% if (includeModernizr) { %><li>Modernizr</li><% } %>
-      </ul>
+    <div class="container">
+      <div class="header wrapper">
+        <h1><%= title %></h1>
+      </div>
+      <div class="main wrapper">
+        <p>main</p>
+      </div>
+      <div class="footer wrapper">
+        <p>footer</p>
+      </div>
     </div>
     <% } %>
+
+    <div id="embed" style="display:none;">
+      <h5>Love it? Embed it on your website or blog:</h5>
+      <a href="#" class="close">&times;</a>
+      <!-- NBED check client name and png/jpg filetypes: -->
+      <textarea onClick="this.select();">&lt;a href=&quot;<%= url %>&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;<%= url %>social/embed.png&quot; border=&quot;0&quot; width=&quot;550&quot; height=&quot;550&quot; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;Click image to open interactive version (via &lt;a href=&quot;http://www.<%= clientName %>.co.uk/&quot;&gt;<%= clientName %>&lt;/a&gt;).&lt;/span&gt;</textarea>
+    </div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -128,7 +136,7 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <!-- NBED: Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
       function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
@@ -137,5 +145,28 @@
       r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
       ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+    <script type="text/javascript">
+      addthis.layers({
+        'theme' : 'transparent',
+        'share' : {
+          'position' : 'left',
+          'services' : 'facebook,twitter,google_plusone_share,linkedin,more'
+        },
+        'follow' : {
+          'services' : [
+            {'service' : 'facebook', 'id' : 'Simply.Business.Insurance'},
+            {'service' : 'twitter', 'id' : 'simplybusiness'},
+              // {'service' : 'linkedin', 'id' : 'simply-business_39914'},
+              {'service' : 'google_plusone', 'id' : 'simplybusiness'}
+          ]
+        },
+        'whatsnext' : {},
+        'recommended' : {}
+      });
+    </script>
+
+    <script src="http://www.linkstant.com/linkstant.js" type="text/javascript"></script>
   </body>
 </html>
