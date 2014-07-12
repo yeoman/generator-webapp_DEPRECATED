@@ -45,15 +45,15 @@ module.exports = yeoman.generators.Base.extend({
       choices: [{
         name: 'Bootstrap',
         value: 'includeBootstrap',
-        checked: true
+        checked: false
       },{
         name: 'Sass',
         value: 'includeSass',
-        checked: false
+        checked: true
       },{
         name: 'Modernizr',
         value: 'includeModernizr',
-        checked: false
+        checked: true
       }]
     }, {
       when: function (answers) {
@@ -65,6 +65,47 @@ module.exports = yeoman.generators.Base.extend({
       message: 'Would you like to use libsass? Read up more at \n' +
         chalk.green('https://github.com/andrew/node-sass#node-sass'),
       default: false
+    }, {
+      name: 'clientName',
+      message: 'What is the client directory name?',
+      default: '0distilled'
+    }, {
+      name: 'ftpHost',
+      message: 'What is the ftp host name?'
+    }, {
+      name: 'ftpUsername',
+      message: 'What is the ftp username?'
+    }, {
+      name: 'ftpPassword',
+      message: 'What is the ftp password?'
+    }, {
+      name: 'title',
+      message: 'What is the page meta title?',
+      default: 'nbed_metaTitle'
+    }, {
+      name: 'socialTitle',
+      message: 'What is the page social/opengraph title?',
+      default: 'nbed_socialTitle'
+    }, {
+      name: 'desc',
+      message: 'What is the page meta description?',
+      default: 'nbed_desc'
+    }, {
+      name: 'socialDesc',
+      message: 'What is the page social/opengraph description?',
+      default: 'nbed_socialDesc'
+    }, {
+      name: 'twitter',
+      message: 'What is the client\'s twitter handle?',
+      default: 'nbed_twitter'
+    }, {
+      name: 'tweet',
+      message: 'What is the tweet text?',
+      default: 'nbed_tweet'
+    }, {
+      name: 'url',
+      message: 'What is the page URL? (include trailing slash)',
+      default: 'http://nbed_url/'
     }];
 
     this.prompt(prompts, function (answers) {
@@ -80,6 +121,19 @@ module.exports = yeoman.generators.Base.extend({
 
       this.includeLibSass = answers.libsass;
       this.includeRubySass = !answers.libsass;
+      this.clientName = answers.clientName;
+      this.ftpHost = answers.ftpHost;
+      this.ftpUsername = answers.ftpUsername;
+      this.ftpPassword = answers.ftpPassword;
+
+      this.title = answers.title;
+      this.socialTitle = answers.socialTitle;
+      this.desc = answers.desc;
+      this.socialDesc = answers.socialDesc;
+      this.socialDesc = answers.socialDesc;
+      this.twitter = answers.twitter;
+      this.tweet = answers.tweet;
+      this.url = answers.url;
 
       done();
     }.bind(this));
@@ -96,6 +150,10 @@ module.exports = yeoman.generators.Base.extend({
   git: function () {
     this.template('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
+  },
+
+  ftpauth: function () {
+    this.template('ftpauth', '.ftpauth');
   },
 
   bower: function () {
@@ -127,9 +185,16 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('editorconfig', '.editorconfig');
   },
 
-  mainStylesheet: function () {
-    var css = 'main.' + (this.includeSass ? 's' : '') + 'css';
-    this.template(css, 'app/styles/' + css);
+  stylesheets: function () {
+    var t = this;
+    function css(file,prefix){
+      prefix = prefix || '';
+      var css = file + '.' + (t.includeSass ? 's' : '') + 'css';
+      t.template(css, 'app/styles/' + prefix + css);
+    }
+    css('main');
+    css('base','_');
+    css('social','_');
   },
 
   writeIndex: function () {
@@ -178,6 +243,7 @@ module.exports = yeoman.generators.Base.extend({
     this.mkdir('app/scripts');
     this.mkdir('app/styles');
     this.mkdir('app/images');
+    this.mkdir('app/social');
     this.write('app/index.html', this.indexFile);
 
     if (this.coffee) {
@@ -187,7 +253,7 @@ module.exports = yeoman.generators.Base.extend({
       );
     }
     else {
-      this.write('app/scripts/main.js', 'console.log(\'\\\'Allo \\\'Allo!\');');
+      this.template('main.js','app/scripts/main.js');
     }
   },
 
