@@ -222,7 +222,7 @@ module.exports = function (grunt) {
     // Add vendor prefixed styles
     autoprefixer: {
       options: {
-        browsers: ['last 10 versions']
+        browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']
       },
       dist: {
         files: [{
@@ -237,13 +237,11 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the HTML file
     wiredep: {
       app: {
-        ignorePath: new RegExp('^<%%= config.app %>/|../'),
-        src: ['<%%= config.app %>/index.html'],<% if (includeBootstrap) { %><% if (includeSass) { %>
-        exclude: ['bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap.js','bower_components/respond/']<% } else { %>
-        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js','bower_components/respond/']
-      <% } } else { %>
-        exclude: ['bower_components/respond/']
-      <% } %>}<% if (includeSass) { %>,
+        ignorePath: /^<%= config.app %>\/|\.\.\//,
+        src: ['<%%= config.app %>/index.html']<% if (includeBootstrap) { %>,<% if (includeSass) { %>
+        exclude: ['bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap.js']<% } else { %>
+        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']<% } } %>
+      }<% if (includeSass) { %>,
       sass: {
         src: ['<%%= config.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
