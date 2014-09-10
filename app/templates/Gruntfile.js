@@ -440,6 +440,16 @@ module.exports = function (grunt) {
     if (grunt.option('allow-remote')) {
       grunt.config.set('connect.options.hostname', '0.0.0.0');
     }
+	if (grunt.option('on')) {
+		//iexplore, chrome, firefox, etc.
+		grunt.log.write('Starting with browser ' + grunt.option('on'));
+
+		if (target === 'dist') {
+			grunt.config.set('connect.dist.options.open', { appName: grunt.option('on') });
+		} else {
+			grunt.config.set('connect.livereload.options.open', { appName: grunt.option('on') });
+		}
+	}
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
