@@ -162,7 +162,7 @@ module.exports = yeoman.generators.Base.extend({
           bs + 'collapse.js',
           bs + 'tab.js'
         ],
-        searchPath: '.'
+        searchPath: 'app'
       });
     }
 
