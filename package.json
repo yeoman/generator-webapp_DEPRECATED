@@ -1,10 +1,10 @@
 {
   "name": "generator-webapp",
-  "version": "0.5.1",
-  "description": "Scaffold out a front-end web app",
+  "version": "0.1.0",
+  "description": "Scaffold out a Salesforce web app",
   "license": "BSD",
-  "repository": "yeoman/generator-webapp",
-  "author": "The Yeoman Team",
+  "repository": "jairzh/generator-webapp-sfdc",
+  "author": "Jair Zheng",
   "main": "app/index.js",
   "engines": {
     "node": ">=0.10.0",
@@ -19,10 +19,9 @@
   "keywords": [
     "yeoman-generator",
     "web",
-    "app",
-    "front-end",
-    "h5bp",
-    "modernizr",
+    "salesforce.com",
+    "force.com",
+    "visualforce",
     "jquery",
     "grunt"
   ],
