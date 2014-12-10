@@ -24,6 +24,20 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  var sfdc = {
+    resource : {
+      name : '', // Static Resource name in SFDC
+      cache : 'Private'  // Private or Public
+    },
+    ant : {
+      api: '31',
+      un: '',  // Fill out your salesforce org unsername
+      pwd: '', // Fill out your salesforce org password
+      token: '', // Fill out your salesforce org token
+      serverurl: 'https://test.salesforce.com' // Change to https://loing.salesforce.com, if you want to deploy to production
+    }
+  }
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -85,8 +99,9 @@ module.exports = function (grunt) {
         port: 9000,
         open: true,
         livereload: 35729,
-        // Change this to '0.0.0.0' to access the server from outside
-        hostname: 'localhost'
+        // The server can be accessed from outside with '0.0.0.0'
+        // Change this to 'localhost' if you want to access the server only in your browser
+        hostname: '0.0.0.0'
       },
       livereload: {
         options: {
@@ -423,9 +438,56 @@ module.exports = function (grunt) {
         'imagemin',
         'svgmin'
       ]
+    },
+
+    // Craete meta.xml file for SFDC static resource
+    'file-creator': {
+      basic: {
+        '.tmp/sfdc/staticresources/<%%= sfdc.resource.name %>.resource-meta.xml': function(fs, fd, done) {
+          fs.writeSync(fd, '<?xml version="1.0" encoding="UTF-8"?>
+                              <StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
+                              <cacheControl><%%= sfdc.resource.cache %></cacheControl>
+                              <contentType>application/x-zip-compressed</contentType>
+                            </StaticResource>');
+          done();
+        }
+      }
+    },
+
+    // Make the dist folder as a zipfile
+    compress: {
+      main: {
+        options: {
+          archive: '.tmp/sfdc/staticresources/<%%= sfdc.resource.name %>.resource',
+          mode: 'zip'
+        },
+        files: [{
+          expand: true,
+          cwd: 'dist',
+          src: ['*/**']
+        }]
+      }
+    },
+
+    // Use the ant to deploy the project as a static resource to SFDC
+    antdeploy: {
+      options: {
+        root: '.tmp/sfdc/',
+        version: '<%%= sfdc.ant.api %>'
+      },
+      dev: {
+        options: {
+          user:      '<%%= sfdc.ant.un %>',
+          pass:      '<%%= sfdc.ant.pwd %>',
+          token:     '<%%= sfdc.ant.token %>',
+          serverurl: '<%%= sfdc.ant.serverurl %>'
+        },
+        pkg: {
+          staticresource: ['*']
+        }
+      }
     }
   });
-
 
   grunt.registerTask('serve', 'start the server and preview your app, --allow-remote for remote access', function (target) {
     if (grunt.option('allow-remote')) {
@@ -485,5 +547,16 @@ module.exports = function (grunt) {
     'newer:jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('upload', [
+    'compress',
+    'file-creator',
+    'antdeploy'
+  ]);
+
+  grunt.registerTask('deploy', [
+    'build',
+    'upload'
   ]);
 };
