@@ -1,11 +1,12 @@
-# Web app generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-webapp.svg?branch=master)](http://travis-ci.org/yeoman/generator-webapp)
+# Force.com Web app generator
 
-[Yeoman](http://yeoman.io) generator that scaffolds out a front-end web app.
+[Yeoman](http://yeoman.io) generator that scaffolds out a Salesforce web app.
 
 ![](http://i.imgur.com/uKTT2Hj.png)
 
 ## Features
 
+* Automagically deploy the `dist` folder to [Force.com](https://developer.force.com)
 * CSS Autoprefixing
 * Built-in preview server with LiveReload
 * Automagically compile CoffeeScript & Sass
@@ -16,14 +17,15 @@
 * Bootstrap for Sass (Optional)
 * Leaner Modernizr builds (Optional)
 
-For more information on what `generator-webapp` can do for you, take a look at the [Grunt tasks](https://github.com/yeoman/generator-webapp/blob/master/app/templates/_package.json) used in our `package.json`.
+For more information on what `generator-webapp-sfdc` can do for you, take a look at the [Grunt tasks](https://github.com/jairzh/generator-webapp-sfdc/blob/master/app/templates/_package.json) used in our `package.json`.
 
 
 ## Getting Started
 
-- Install: `npm install -g generator-webapp`
-- Run: `yo webapp`
-- Run `grunt` for building and `grunt serve` for preview[\*](#grunt-serve-note). `--allow-remote` option for remote access.
+- Install: `npm install -g generator-webapp-sfdc`
+- Run: `yo webapp-sfdc`
+- Run `grunt` for building and `grunt serve` for preview[\*](#grunt-serve-note)
+- Run `grunt deploy` for building and uploading `dist` as a `static resource` in [Force.com](https://developer.force.com)
 
 
 #### Third-Party Dependencies
