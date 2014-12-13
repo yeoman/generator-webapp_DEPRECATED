@@ -36,13 +36,14 @@ module.exports = function (grunt) {
       token: '', // Fill out your salesforce org token
       serverurl: 'https://test.salesforce.com' // Change to https://loing.salesforce.com, if you want to deploy to production
     }
-  }
+  };
 
   // Define the configuration for all the tasks
   grunt.initConfig({
 
     // Project settings
     config: config,
+    sfdc: sfdc,
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -442,15 +443,21 @@ module.exports = function (grunt) {
 
     // Craete meta.xml file for SFDC static resource
     'file-creator': {
-      basic: {
-        '.tmp/sfdc/staticresources/<%%= sfdc.resource.name %>.resource-meta.xml': function(fs, fd, done) {
-          fs.writeSync(fd, '<?xml version="1.0" encoding="UTF-8"?>
-                              <StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
-                              <cacheControl><%%= sfdc.resource.cache %></cacheControl>
-                              <contentType>application/x-zip-compressed</contentType>
-                            </StaticResource>');
-          done();
-        }
+      'conditional': {
+        files: [
+          {
+            file: '.tmp/sfdc/staticresources/' + '<%%= sfdc.resource.name %>' + '.resource-meta.xml',
+            method: function(fs, fd, done) {
+              //var name = 'xxxx';
+              fs.writeSync(fd, '<?xml version="1.0" encoding="UTF-8"?>' +
+                                  '<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">' +
+                                  '<cacheControl>' + sfdc.resource.cache + '</cacheControl>' +
+                                  '<contentType>application/x-zip-compressed</contentType>' +
+                                '</StaticResource>');
+              done();
+            }
+          }
+        ]
       }
     },
 
