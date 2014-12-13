@@ -25,8 +25,6 @@ describe('Webapp generator', function () {
       'package.json',
       'bower.json',
       'Gruntfile.js',
-      'app/favicon.ico',
-      'app/robots.txt',
       'app/index.html'
     ];
 
