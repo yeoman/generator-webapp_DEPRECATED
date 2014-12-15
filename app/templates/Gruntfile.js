@@ -244,7 +244,8 @@ module.exports = function (grunt) {
         ignorePath: /^<%= config.app %>\/|\.\.\//,
         src: ['<%%= config.app %>/index.html']<% if (includeBootstrap) { %>,<% if (includeSass) { %>
         exclude: ['bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js']<% } else { %>
-        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']<% } } %>
+        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']<% } } %><% if (includeFoundation) { %>,
+        exclude: ['bower_components/foundation/scss', 'bower_components/foundation/css']<% } %>
       }<% if (includeSass) { %>,
       sass: {
         src: ['<%%= config.app %>/styles/{,*/}*.{scss,sass}'],
