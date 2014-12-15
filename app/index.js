@@ -33,7 +33,7 @@ module.exports = yeoman.generators.Base.extend({
     if (!this.options['skip-welcome-message']) {
       this.log(require('yosay')());
       this.log(chalk.magenta(
-        'Out of the box you have HTML5 Boilerplate, jQuery, and a ' +
+        'Out of the box I include HTML5 Boilerplate, jQuery, and a ' +
         'Gruntfile.js to build your app.'
       ));
     }
@@ -45,23 +45,15 @@ module.exports = yeoman.generators.Base.extend({
       choices: [{
         name: 'Bootstrap',
         value: 'includeBootstrap',
-        checked: false
-      },{
-        name: 'Foundation',
-        value: 'includeFoundation',
-        checked: false
-      },{
-        name: 'Bourbon',
-        value: 'includeBourbon',
         checked: true
       },{
         name: 'Sass',
         value: 'includeSass',
-        checked: true
+        checked: false
       },{
         name: 'Modernizr',
         value: 'includeModernizr',
-        checked: true
+        checked: false
       }]
     }, {
       when: function (answers) {
@@ -73,17 +65,7 @@ module.exports = yeoman.generators.Base.extend({
       value: 'includeLibSass',
       message: 'Would you like to use libsass? Read up more at \n' +
         chalk.green('https://github.com/andrew/node-sass#node-sass'),
-      default: true
-    }, {
-      when: function (answers) {
-        return answers && answers.features &&
-          answers.features.indexOf('includeBourbon') !== -1;
-      },
-      type: 'confirm',
-      name: 'neat',
-      value: 'includeNeat',
-      message: 'Would you like to include Neat?',
-      default: true
+      default: false
     }];
 
     this.prompt(prompts, function (answers) {
@@ -95,8 +77,6 @@ module.exports = yeoman.generators.Base.extend({
 
       this.includeSass = hasFeature('includeSass');
       this.includeBootstrap = hasFeature('includeBootstrap');
-      this.includeFoundation = hasFeature('includeFoundation');
-      this.includeBourbon = hasFeature('includeBourbon');
       this.includeModernizr = hasFeature('includeModernizr');
 
       this.includeLibSass = answers.libsass;
@@ -126,30 +106,15 @@ module.exports = yeoman.generators.Base.extend({
       dependencies: {}
     };
 
-    bower.dependencies.jquery = ">= 2.1.0"; // TODO: Check each framework for jQuery version
-
     if (this.includeBootstrap) {
       var bs = 'bootstrap' + (this.includeSass ? '-sass-official' : '');
       bower.dependencies[bs] = "~3.2.0";
-    }
-
-    if (this.includeFoundation) {
-      var bs = 'foundation';
-      bower.dependencies[bs] = "~5.5.0";
-    }
-
-    if (this.includeBourbon) {
-      var bs = 'bourbon';
-      bower.dependencies[bs] = "~4.0.2";
-    }
-
-    if (this.includeNeat) {
-      var bs = 'neat';
-      bower.dependencies[bs] = "~1.7.0";
+    } else {
+      bower.dependencies.jquery = "~1.11.1";
     }
 
     if (this.includeModernizr) {
-      bower.dependencies.modernizr = "~2.8.3";
+      bower.dependencies.modernizr = "~2.8.2";
     }
 
     this.copy('bowerrc', '.bowerrc');
