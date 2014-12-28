@@ -323,7 +323,10 @@ module.exports = function (grunt) {
           removeCommentsFromCDATA: true,
           removeEmptyAttributes: true,
           removeOptionalTags: true,
-          removeRedundantAttributes: true,
+          // removing redundant attributes from input fields removes attributes that could be styled
+          // such as type="text", placeholder etc.. I would suggest setting removeRedundantAttributes
+          // to false as leaving it set to true might cause undesired results when distributing/running build
+          removeRedundantAttributes: false,
           useShortDoctype: true
         },
         files: [{
