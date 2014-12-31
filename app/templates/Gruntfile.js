@@ -1,6 +1,6 @@
 /*jshint node:true*/
 
-// Generated on <%= (new Date).toISOString().split('T')[0] %> using
+// Generated on <%= grunt.template.today('yyyy-mm-dd') %> using
 // <%= pkg.name %> <%= pkg.version %>
 'use strict';
 
