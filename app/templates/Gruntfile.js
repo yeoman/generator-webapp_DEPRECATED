@@ -323,7 +323,7 @@ module.exports = function (grunt) {
           removeCommentsFromCDATA: true,
           removeEmptyAttributes: true,
           removeOptionalTags: true,
-          // setting removeRedundantAttributes to true will impact styles with attribute selectors
+          // true would impact styles with attribute selectors
           removeRedundantAttributes: false,
           useShortDoctype: true
         },
