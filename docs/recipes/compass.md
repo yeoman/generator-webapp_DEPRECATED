@@ -115,6 +115,20 @@ compass: {
  }
 ```
 
+#### `wiredep`
+```diff
+wiredep: {
+  app: {
+...
+  },
+- 'sass',
++ 'compass', {
+    src: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+    ignorePath: /(\.\.\/){1,2}bower_components\//
+  }
+},
+```
+
 ### 4. Use Compass features
 
 No `@import "compass"` needed.
