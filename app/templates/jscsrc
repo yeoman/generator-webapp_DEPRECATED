@@ -1,0 +1,14 @@
+{
+  "preset": "google",
+  "requireSpacesInFunctionExpression": {
+    "beforeOpeningRoundBrace": true,
+    "beforeOpeningCurlyBrace": true
+  },
+  "disallowSpacesInAnonymousFunctionExpression": null,
+  "requireBlocksOnNewline": 1,
+  "disallowTrailingComma": true,
+  "disallowKeywordsOnNewLine": ["else"],
+  "requireSpaceAfterLineComment": true,
+  "disallowNewlineBeforeBlockStatements": true,
+  "maximumLineLength": 120
+}

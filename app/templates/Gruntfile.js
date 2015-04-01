@@ -24,6 +24,16 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  config.targets = {
+    // Validate target javascripts
+    jscheck: [
+      'Gruntfile.js',
+      '<%%= config.app %>/scripts/{,*/}*.js',
+      '!<%%= config.app %>/scripts/vendor/*',
+      'test/spec/{,*/}*.js'
+    ]
+  };
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -46,7 +56,7 @@ module.exports = function (grunt) {
       },<% } else { %>
       js: {
         files: ['<%%= config.app %>/scripts/{,*/}*.js'],
-        tasks: ['jshint'],
+        tasks: ['jscheck']
       },
       jstest: {
         files: ['test/spec/{,*/}*.js'],
@@ -129,12 +139,11 @@ module.exports = function (grunt) {
         jshintrc: '.jshintrc',
         reporter: require('jshint-stylish')
       },
-      all: [
-        'Gruntfile.js',
-        '<%%= config.app %>/scripts/{,*/}*.js',
-        '!<%%= config.app %>/scripts/vendor/*',
-        'test/spec/{,*/}*.js'
-      ]
+      all: config.targets.jscheck
+    },
+    // Make sure code styles are up to par and there are no obvious mistakes
+    jscs: {
+      all: config.targets.jscheck
     },<% if (testFramework === 'mocha') { %>
 
     // Mocha testing framework configuration options
@@ -424,6 +433,7 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.registerTask('jscheck', ['jshint', 'jscs']);
 
   grunt.registerTask('serve', 'start the server and preview your app', function (target) {
 
@@ -480,6 +490,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'newer:jshint',
+    'newer:jscs',
     'test',
     'build'
   ]);

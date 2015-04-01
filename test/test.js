@@ -21,6 +21,8 @@ describe('Webapp generator', function () {
       '.editorconfig',
       '.gitignore',
       '.gitattributes',
+      '.jshintrc',
+      '.jscsrc',
       'package.json',
       'bower.json',
       'Gruntfile.js',
