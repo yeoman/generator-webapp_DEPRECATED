@@ -10,6 +10,21 @@ var appendConvert4To2 = function () {
   // force convert indent size from 4 to 2
   if (args.length > 2 && args[2], _.isString(args[2])) {
     args[2] = args[2].replace(/^        /gm, '    ');
+
+    // before
+    // ----------
+    //   </body>
+    // ----------
+    // append script tag
+    //
+    // after
+    //
+    // ----------
+    //     <script...
+    //
+    //   </body>
+    // ----------
+    args[2] += '\n  ';
   }
 
   return this._append.apply(this, args);
