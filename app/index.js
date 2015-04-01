@@ -2,6 +2,18 @@
 var join = require('path').join;
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
+var _ = require('underscore');
+
+var appendConvert4To2 = function () {
+  var args = _.toArray(arguments);
+
+  // force convert indent size from 4 to 2
+  if (args.length > 2 && args[2], _.isString(args[2])) {
+    args[2] = args[2].replace(/^        /gm, '    ');
+  }
+
+  return this._append.apply(this, args);
+};
 
 module.exports = yeoman.generators.Base.extend({
   constructor: function () {
@@ -23,6 +35,11 @@ module.exports = yeoman.generators.Base.extend({
     this.coffee = this.options.coffee;
 
     this.pkg = require('../package.json');
+
+    // override append method
+    // force convert indent size from 4 to 2
+    this._append = this.append;
+    this.append = appendConvert4To2;
   },
 
   askFor: function () {
