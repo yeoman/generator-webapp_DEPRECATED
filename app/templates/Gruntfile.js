@@ -21,17 +21,16 @@ module.exports = function (grunt) {
   // Configurable paths
   var config = {
     app: 'app',
-    dist: 'dist'
-  };
-
-  config.targets = {
-    // Validate target javascripts
-    jscheck: [
-      'Gruntfile.js',
-      '<%%= config.app %>/scripts/{,*/}*.js',
-      '!<%%= config.app %>/scripts/vendor/*',
-      'test/spec/{,*/}*.js'
-    ]
+    dist: 'dist',
+    targets: {
+      // Validate target javascripts
+      jscheck: [
+        'Gruntfile.js',
+        '<%%= config.app %>/scripts/{,*/}*.js',
+        '!<%%= config.app %>/scripts/vendor/*',
+        'test/spec/{,*/}*.js'
+      ]
+    }
   };
 
   // Define the configuration for all the tasks
