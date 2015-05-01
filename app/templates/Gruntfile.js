@@ -183,6 +183,7 @@ module.exports = function (grunt) {
     sass: {
       options: {
         sourceMap: true,
+        sourceMapContents: true,
         includePaths: ['bower_components'],
         loadPath: 'bower_components'
       },
@@ -212,8 +213,7 @@ module.exports = function (grunt) {
         browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']<% if (includeSass) { %>,
         map: {
           prev: '.tmp/styles/'
-        }
-        <% } %>
+        }<% } %>
       },
       dist: {
         files: [{
