@@ -168,14 +168,16 @@ module.exports = yeoman.generators.Base.extend({
   app: function () {
     this.directory('app');
     this.mkdir('app/css');
-    this.mkdir('app/vr');
-    this.mkdir('app/vr/assets');
     this.mkdir('app/js');
     this.write('app/index.html', this.indexFile);
     
     this.copy('main.js', 'app/js/main.js');
     this.copy('util.js', 'app/js/util.js');
-    // this.copy('app/vr/gallery.js', 'app/vr/js/gallery.js');
+  },
+
+  vr: function () {
+    // eventually copy a vr env based on the user's input
+    this.directory('app/google-vr', 'app/vr');
   },
 
   install: function () {
