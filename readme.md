@@ -1,14 +1,12 @@
-# Web app generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-webapp.svg?branch=master)](http://travis-ci.org/yeoman/generator-webapp)
+# Web app generator
 
-[Yeoman](http://yeoman.io) generator that scaffolds out a front-end web app.
-
-![](http://i.imgur.com/uKTT2Hj.png)
+[Yeoman](http://yeoman.io) generator that scaffolds out a web app complete with a virtual reality environment built with [THREE.js](http://threejs.org) which is [Google Cardboard](http://g.co/cardboard) compatible.
 
 ## Features
 
 * CSS Autoprefixing
 * Built-in preview server with LiveReload
-* Automagically compile CoffeeScript & Sass
+* Automagically compile Sass
 * Automagically lint your scripts
 * Automagically wire up your Bower components with [grunt-wiredep](#third-party-dependencies).
 * Awesome Image Optimization (via OptiPNG, pngquant, jpegtran and gifsicle)
@@ -16,13 +14,10 @@
 * Bootstrap for Sass (Optional)
 * Leaner Modernizr builds (Optional)
 
-For more information on what `generator-webapp` can do for you, take a look at the [Grunt tasks](https://github.com/yeoman/generator-webapp/blob/master/app/templates/_package.json) used in our `package.json`.
-
-
 ## Getting Started
 
-- Install: `npm install -g generator-webapp`
-- Run: `yo webapp`
+- Install: `npm install -g generator-cardboard`
+- Run: `yo cardboard`
 - Run `grunt` for building and `grunt serve` for preview[\*](#grunt-serve-note). `--allow-remote` option for remote access.
 
 
@@ -51,11 +46,6 @@ The components are installed in the root of the project at `/bower_components`. 
 Note: `grunt server` was used for previewing in earlier versions of the project, and has since been deprecated in favor of `grunt serve`.
 
 
-## Docs
-
-We have [recipes](docs/recipes) for integrating other popular technologies like Compass.
-
-
 ## Options
 
 * `--skip-install`
@@ -65,10 +55,6 @@ We have [recipes](docs/recipes) for integrating other popular technologies like 
 * `--test-framework=<framework>`
 
   Defaults to `mocha`. Can be switched for another supported testing framework like `jasmine`.
-
-* `--coffee`
-
-  Add support for [CoffeeScript](http://coffeescript.org/).
 
 
 ## Contribute
