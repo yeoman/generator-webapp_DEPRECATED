@@ -46,6 +46,21 @@ module.exports = yeoman.generators.Base.extend({
         value: 'includeModernizr',
         checked: false
       }]
+    }, {
+      type: 'list',
+      name: 'vrEnv',
+      message: 'Which VR environment would you like me to generate?',
+      default: 'emptyScene',
+      choices: [{
+        name: 'A single empty scene',
+        value: 'emptyScene'
+      }, {
+        name: 'A simple gallery',
+        value: 'gallery'
+      }, {
+        name: 'None at all',
+        value: 'none'
+      }]
     }];
 
     this.prompt(prompts, function (answers) {
