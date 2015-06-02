@@ -1,9 +1,9 @@
 {
-  "name": "generator-webapp",
+  "name": "generator-cardboard",
   "version": "0.5.1",
-  "description": "Scaffold out a front-end web app",
+  "description": "Scaffold out a web based Google cardboard VR experience",
   "license": "BSD",
-  "repository": "yeoman/generator-webapp",
+  "repository": "jeshuamaxey/generator-cardboard",
   "author": "Yeoman",
   "main": "app/index.js",
   "scripts": {
@@ -17,9 +17,8 @@
     "web",
     "app",
     "front-end",
-    "h5bp",
-    "modernizr",
-    "jquery",
+    "cardboard",
+    "three-js",
     "grunt"
   ],
   "dependencies": {

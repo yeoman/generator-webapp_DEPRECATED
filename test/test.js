@@ -49,12 +49,11 @@ describe('Webapp generator', function () {
 
         assert.file([].concat(
           expected,
-          'app/styles/main.css',
-          'app/scripts/main.js'
+          'app/css/main.css',
+          'app/js/main.js'
         ));
         assert.noFile([
-          'app/styles/main.scss',
-          'app/scripts/main.coffee'
+          'app/css/main.scss'
         ]);
 
         assert.fileContent(expectedContent);
@@ -80,26 +79,6 @@ describe('Webapp generator', function () {
       });
     });
 
-    it('creates expected CoffeeScript files', function (done) {
-      runGen.withOptions(
-        _.extend(options, {coffee: true})
-      ).on('end', function () {
-
-        assert.file([].concat(
-          expected,
-          'app/scripts/main.coffee'
-        ));
-        assert.noFile('app/scripts/main.js');
-
-        assert.fileContent([].concat(
-          expectedContent,
-          [['Gruntfile.js', /coffee/]]
-        ));
-
-        done();
-      });
-    });
-
     it('creates expected modernizr components', function (done) {
       runGen.withOptions(options).withPrompt({features: ['includeModernizr']})
       .on('end', function () {
@@ -116,8 +95,9 @@ describe('Webapp generator', function () {
     });
 
     it('creates expected bootstrap components', function (done) {
-      runGen.withOptions(options).withPrompt({features: ['includeBootstrap']})
-      .on('end', function () {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeBootstrap']
+      }).on('end', function () {
 
         assert.fileContent([
           ['Gruntfile.js', /bootstrap/],

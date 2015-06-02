@@ -7,7 +7,6 @@
   "esnext": true,
   "immed": true,<% if (testFramework === 'jasmine') { %>
   "jasmine": true,<% } %>
-  "jquery": true,
   "latedef": true,<% if (testFramework === 'mocha') { %>
   "mocha": true,<% } %>
   "newcap": true,
