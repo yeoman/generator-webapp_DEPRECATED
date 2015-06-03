@@ -159,5 +159,22 @@ describe('Webapp generator', function () {
         done();
       });
     });
+
+    it('creates expected file when no vr env is requested', function (done) {
+      runGen.withOptions(options).withPrompt({
+        vrEnv: 'none'
+      }).on('end', function () {
+
+        assert.file([
+          'app/vr/index.html'
+        ]);
+
+        assert.fileContent([
+          ['app/vr/index.html', /This is the start of something very cool/],
+        ]);
+
+        done();
+      });
+    });
   });
 });
