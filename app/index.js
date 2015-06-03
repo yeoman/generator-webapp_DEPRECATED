@@ -74,6 +74,8 @@ module.exports = yeoman.generators.Base.extend({
       this.includeBootstrap = hasFeature('includeBootstrap');
       this.includeModernizr = hasFeature('includeModernizr');
 
+      this.vrEnv = answers.vrEnv;
+
       done();
     }.bind(this));
   },
@@ -176,8 +178,17 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   vr: function () {
-    // eventually copy a vr env based on the user's input
-    this.directory('app/google-vr', 'app/vr');
+    switch (this.vrEnv) {
+      case 'gallery':
+        //
+        break;
+      case 'none':
+        //
+        break;
+      case 'emptyScene':
+      default:
+        this.directory('app/google-vr', 'app/vr');
+    }
   },
 
   install: function () {
