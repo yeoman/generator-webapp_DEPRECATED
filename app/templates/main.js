@@ -12,7 +12,7 @@ function launchVR(event) {
   vrViewer.src = '/vr/';
   vrViewer.height = '100%';
   vrViewer.width = '100%';
-  vrViewer.frameborder = '0';
+  vrViewer.frameBorder = '0';
   vrViewer.scrolling = 'no';
   vrViewer.allowfullscreen = '';
   vrViewer.mozallowfullscreen = '';
