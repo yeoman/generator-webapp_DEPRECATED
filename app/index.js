@@ -183,7 +183,7 @@ module.exports = yeoman.generators.Base.extend({
         //
         break;
       case 'none':
-        //
+        this.directory('no-vr-env', 'app/vr');
         break;
       case 'emptyScene':
       default:
