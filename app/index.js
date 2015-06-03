@@ -187,7 +187,7 @@ module.exports = yeoman.generators.Base.extend({
         break;
       case 'emptyScene':
       default:
-        this.directory('app/google-vr', 'app/vr');
+        this.directory('google-vr', 'app/vr');
     }
   },
 
