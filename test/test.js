@@ -80,8 +80,9 @@ describe('Webapp generator', function () {
     });
 
     it('creates expected modernizr components', function (done) {
-      runGen.withOptions(options).withPrompt({features: ['includeModernizr']})
-      .on('end', function () {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeModernizr']
+      }).on('end', function () {
 
         assert.fileContent([
           ['Gruntfile.js', /modernizr/],
@@ -135,6 +136,24 @@ describe('Webapp generator', function () {
           ['Gruntfile.js', /bootstrap-sass-official/],
           ['app/index.html', /Sass is a mature/],
           ['bower.json', /bootstrap-sass-official/]
+        ]);
+
+        done();
+      });
+    });
+
+    it('creates expected empty vr scene files', function (done) {
+      runGen.withOptions(options).withPrompt({
+        vrEnv: 'emptyScene'
+      }).on('end', function () {
+
+        assert.file([
+          'app/vr/index.html',
+          'app/vr/js/third-party/threejs/DeviceOrientationControls.js',
+          'app/vr/js/third-party/threejs/OrbitControls.js',
+          'app/vr/js/third-party/threejs/StereoEffect.js',
+          'app/vr/js/third-party/threejs/three.js',
+          'app/vr/textures/patterns/checker.png'
         ]);
 
         done();
