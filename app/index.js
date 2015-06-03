@@ -1,5 +1,4 @@
 'use strict';
-
 var join = require('path').join;
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
@@ -55,17 +54,6 @@ module.exports = yeoman.generators.Base.extend({
         value: 'includeModernizr',
         checked: false
       }]
-    }, {
-      when: function (answers) {
-        return answers && answers.features &&
-          answers.features.indexOf('includeSass') !== -1;
-      },
-      type: 'confirm',
-      name: 'libsass',
-      value: 'includeLibSass',
-      message: 'Would you like to use libsass? Read up more at \n' +
-        chalk.green('https://github.com/andrew/node-sass#node-sass'),
-      default: false
     }];
 
     this.prompt(prompts, function (answers) {
@@ -78,9 +66,6 @@ module.exports = yeoman.generators.Base.extend({
       this.includeSass = hasFeature('includeSass');
       this.includeBootstrap = hasFeature('includeBootstrap');
       this.includeModernizr = hasFeature('includeModernizr');
-
-      this.includeLibSass = answers.libsass;
-      this.includeRubySass = !answers.libsass;
 
       done();
     }.bind(this));
@@ -108,13 +93,13 @@ module.exports = yeoman.generators.Base.extend({
 
     if (this.includeBootstrap) {
       var bs = 'bootstrap' + (this.includeSass ? '-sass-official' : '');
-      bower.dependencies[bs] = "~3.2.0";
+      bower.dependencies[bs] = '~3.3.0';
     } else {
-      bower.dependencies.jquery = "~1.11.1";
+      bower.dependencies.jquery = '~1.11.1';
     }
 
     if (this.includeModernizr) {
-      bower.dependencies.modernizr = "~2.8.2";
+      bower.dependencies.modernizr = '~2.8.2';
     }
 
     this.copy('bowerrc', '.bowerrc');
@@ -183,13 +168,9 @@ module.exports = yeoman.generators.Base.extend({
     this.write('app/index.html', this.indexFile);
 
     if (this.coffee) {
-      this.write(
-        'app/scripts/main.coffee',
-        'console.log "\'Allo from CoffeeScript!"'
-      );
-    }
-    else {
-      this.write('app/scripts/main.js', 'console.log(\'\\\'Allo \\\'Allo!\');');
+      this.copy('main.coffee', 'app/scripts/main.coffee');
+    } else {
+      this.copy('main.js', 'app/scripts/main.js');
     }
   },
 
