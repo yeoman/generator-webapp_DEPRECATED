@@ -11,7 +11,7 @@ function fullscreenChange () {
                         !document.mozFullscreenElement;
   if(notInFullscreen) {
     var vrViewer = document.getElementById('vrViewer');
-    document.getElementById('vrContainer'.removeChild( vrViewer);
+    document.getElementById('vrContainer').removeChild(vrViewer);
     window.removeEventListener('orientationchange');
   }
 }
