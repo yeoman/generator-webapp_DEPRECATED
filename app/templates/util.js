@@ -1,6 +1,6 @@
-(function(global) {
+'use strict';
 
-var orientation;
+(function(global) {
 
 var util = {
   GetScreenOrientation: function() {
@@ -14,8 +14,9 @@ var util = {
       case 'portrait-primary':
         return 0;
     }
-    if (window.orientation !== undefined)
+    if (window.orientation !== undefined) {
       return window.orientation;
+    }
   },
   vibrate: function(ms) {
     if(window.navigator.vibrate) {
@@ -31,12 +32,12 @@ var util = {
   getParameterByName: function(name) {
     // props to this SO Q/A
     // http://stackoverflow.com/questions/901115
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
         results = regex.exec(location.search);
     return results === null ?
-      "" :
-      decodeURIComponent(results[1].replace(/\+/g, " "));
+      '' :
+      decodeURIComponent(results[1].replace(/\+/g, ' '));
   },
   makeElementFullscreen: function(elem) {
     if (elem.requestFullscreen) {

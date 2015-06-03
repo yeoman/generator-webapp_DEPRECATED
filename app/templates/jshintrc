@@ -14,5 +14,9 @@
   "quotmark": "single",
   "strict": true,
   "undef": true,
-  "unused": true
+  "unused": true,
+  "globalstrict": true,
+  "predef": [
+    "util"
+  ]
 }

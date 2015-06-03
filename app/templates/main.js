@@ -1,8 +1,22 @@
-window.onload = function() {
-  document.getElementById('enterVR').addEventListener('click', launchVR);
-};
+'use strict';
 
-function launchVR(event) {
+function setIframeDimensions() {
+  var html = document.getElementsByTagName('html')[0];
+  document.getElementById('vrViewer').style.height = html.clientHeight;
+  document.getElementById('vrViewer').style.height = html.clintWidth;
+}
+
+function fullscreenChange() {
+  var notInFullscreen = !document.webkitFullscreenElement &&
+                        !document.mozFullscreenElement;
+  if(notInFullscreen) {
+    var vrViewer = document.getElementById('vrViewer');
+    document.getElementById('vrContainer').removeChild(vrViewer);
+    window.removeEventListener('orientationchange');
+  }
+}
+
+function launchVR() {
   var vrContainer = document.getElementById('vrContainer');
   vrContainer.style.display = 'block';
 
@@ -31,18 +45,6 @@ function launchVR(event) {
 
 }
 
-function fullscreenChange(e) {
-  var notInFullscreen = !document.webkitFullscreenElement &&
-                        !document.mozFullscreenElement;
-  if(notInFullscreen) {
-    var vrViewer = document.getElementById('vrViewer');
-    document.getElementById('vrContainer').removeChild(vrViewer);
-    window.removeEventListener('orientationchange');
-  }
-}
-
-function setIframeDimensions() {
-  var html = document.getElementsByTagName('html')[0]
-  document.getElementById('vrViewer').style.height = html.clientHeight;
-  document.getElementById('vrViewer').style.height = html.clintWidth;
-}
+window.onload = function() {
+  document.getElementById('enterVR').addEventListener('click', launchVR);
+};
