@@ -1,9 +1,9 @@
 'use strict';
 
-(function(global) {
+(function (global) {
 
 var util = {
-  GetScreenOrientation: function() {
+  GetScreenOrientation: function () {
     switch (window.screen.orientation || window.screen.mozOrientation) {
       case 'landscape-primary':
         return 90;
@@ -18,7 +18,7 @@ var util = {
       return window.orientation;
     }
   },
-  vibrate: function(ms) {
+  vibrate: function (ms) {
     if(window.navigator.vibrate) {
       return window.navigator.vibrate(ms);
     } else if(window.navigator.webkitVibrate) {
@@ -29,7 +29,7 @@ var util = {
       return false;
     }
   },
-  getParameterByName: function(name) {
+  getParameterByName: function (name) {
     // props to this SO Q/A
     // http://stackoverflow.com/questions/901115
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -39,7 +39,7 @@ var util = {
       '' :
       decodeURIComponent(results[1].replace(/\+/g, ' '));
   },
-  makeElementFullscreen: function(elem) {
+  makeElementFullscreen: function (elem) {
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
     } else if (elem.msRequestFullscreen) {

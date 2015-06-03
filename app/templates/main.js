@@ -1,22 +1,22 @@
 'use strict';
 
-function setIframeDimensions() {
+function setIframeDimensions () {
   var html = document.getElementsByTagName('html')[0];
   document.getElementById('vrViewer').style.height = html.clientHeight;
   document.getElementById('vrViewer').style.height = html.clintWidth;
 }
 
-function fullscreenChange() {
+function fullscreenChange () {
   var notInFullscreen = !document.webkitFullscreenElement &&
                         !document.mozFullscreenElement;
   if(notInFullscreen) {
     var vrViewer = document.getElementById('vrViewer');
-    document.getElementById('vrContainer').removeChild(vrViewer);
+    document.getElementById('vrContainer'.removeChild( vrViewer);
     window.removeEventListener('orientationchange');
   }
 }
 
-function launchVR() {
+function launchVR () {
   var vrContainer = document.getElementById('vrContainer');
   vrContainer.style.display = 'block';
 
@@ -36,15 +36,15 @@ function launchVR() {
   vrViewer.onload = setIframeDimensions;
   window.addEventListener('orientationchange', setIframeDimensions);
 
-  vrContainer.appendChild(vrViewer);
+  vrContainer.appendChild( vrViewer);
 
-  util.makeElementFullscreen(vrContainer);
+  util.makeElementFullscreen( vrContainer);
 
   document.addEventListener('webkitfullscreenchange', fullscreenChange);
   document.addEventListener('moxfullscreenchange', fullscreenChange);
 
 }
 
-window.onload = function() {
-  document.getElementById('enterVR').addEventListener('click', launchVR);
+window.onload = function () {
+  document.getElementById('enterVR' ).addEventListener('click', launchVR);
 };
