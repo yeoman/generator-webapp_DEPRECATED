@@ -1,6 +1,6 @@
 {
   "name": "generator-webapp-sfdc",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Use Yoeman to scaffold out a Salesforce web app",
   "license": "BSD",
   "repository": "jairzh/generator-webapp-sfdc",

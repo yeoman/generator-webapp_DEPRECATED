@@ -28,9 +28,9 @@
     "load-grunt-tasks": "^3.1.0",
     "time-grunt": "^1.1.0",
 
- 	"grunt-ant-sfdc": "~0.2.6",
+ 	  "grunt-ant-sfdc": "~0.2.6",
     "grunt-contrib-compress": "~0.9.1",
-    "grunt-file-creator": "~0.1.1
+    "grunt-file-creator": "~0.1.1"
   },
   "engines": {
     "node": ">=0.10.0"
