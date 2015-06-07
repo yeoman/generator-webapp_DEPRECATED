@@ -87,6 +87,11 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+
+  .footer {
+    text-align: center;
+  }
+  
 }<% } else { %>body {
   background: #fafafa;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
