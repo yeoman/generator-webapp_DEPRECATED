@@ -1,4 +1,5 @@
 'use strict';
+
 var join = require('path').join;
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
@@ -54,9 +55,6 @@ module.exports = yeoman.generators.Base.extend({
       choices: [{
         name: 'A single empty scene',
         value: 'emptyScene'
-      }, {
-        name: 'A simple gallery',
-        value: 'gallery'
       }, {
         name: 'None at all',
         value: 'none'
@@ -179,9 +177,6 @@ module.exports = yeoman.generators.Base.extend({
 
   vr: function () {
     switch (this.vrEnv) {
-      case 'gallery':
-        //
-        break;
       case 'none':
         this.directory('no-vr-env', 'app/vr');
         break;
