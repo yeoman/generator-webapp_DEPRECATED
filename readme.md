@@ -1,4 +1,4 @@
-# Cardboard Web App Generator
+# Cardboard Web App Generator [![Build Status](https://secure.travis-ci.org/jeshuamaxey/generator-cardboard.svg?branch=master)](http://travis-ci.org/jeshuamaxey/generator-cardboard)
 
 [Yeoman](http://yeoman.io) generator that scaffolds out a web app complete with a virtual reality environment built with [THREE.js](http://threejs.org) which is [Google Cardboard](http://g.co/cardboard) compatible.
 
