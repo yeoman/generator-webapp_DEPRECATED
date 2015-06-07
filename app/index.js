@@ -120,13 +120,13 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   mainStylesheet: function () {
-    var css = 'main.' + (this.includeSass ? 's' : '') + 'css';
-    this.template(css, 'app/css/' + css);
+    var css = 'css/main.' + (this.includeSass ? 's' : '') + 'css';
+    this.template(css, 'app/' + css);
   },
 
   writeIndex: function () {
     this.indexFile = this.engine(
-      this.readFileAsString(join(this.sourceRoot(), 'index.html')),
+      this.readFileAsString(join(this.sourceRoot(), 'app/index.html')),
       this
     );
 
@@ -171,18 +171,18 @@ module.exports = yeoman.generators.Base.extend({
     this.mkdir('app/js');
     this.write('app/index.html', this.indexFile);
     
-    this.copy('main.js', 'app/js/main.js');
-    this.copy('util.js', 'app/js/util.js');
+    this.copy('js/main.js', 'app/js/main.js');
+    this.copy('js/util.js', 'app/js/util.js');
   },
 
   vr: function () {
     switch (this.vrEnv) {
       case 'none':
-        this.directory('no-vr-env', 'app/vr');
+        this.directory('vr/no-vr-env', 'app/vr');
         break;
       case 'emptyScene':
       default:
-        this.directory('google-vr', 'app/vr');
+        this.directory('vr/google-vr', 'app/vr');
     }
   },
 
