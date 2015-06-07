@@ -41,6 +41,11 @@
         <button id="enterVR" class="btn btn-lg btn-success">
           Enter Virtual Reality
         </button>
+        <% if (vrEnv === 'emptyScene') { %>
+        <p>
+          The code for this virtual reality demo was sourced from the code preview available at <a href="//vr.chromeexperiments.com/">vr.chromeexperiments.com</a>.
+        </p>
+        <% } %>
       </div>
 
       <div id="vrContainer"></div>
@@ -86,6 +91,11 @@
       <button id="enterVR" class="btn">
         Enter Virtual Reality
       </button>
+      <% if (vrEnv === 'emptyScene') { %>
+      <p>
+        The code for this virtual reality demo was sourced from the code preview available at <a href="//vr.chromeexperiments.com/">vr.chromeexperiments.com</a>.
+      </p>
+      <% } %>
       <div id="vrContainer"></div>
       <p>You now have</p>
       <ul>

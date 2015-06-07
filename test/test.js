@@ -156,6 +156,10 @@ describe('Webapp generator', function () {
           'app/vr/textures/patterns/checker.png'
         ]);
 
+        assert.fileContent([
+          ['app/index.html', /The code for this virtual reality demo was sourced from the code preview available at/],
+        ]);
+
         done();
       });
     });
