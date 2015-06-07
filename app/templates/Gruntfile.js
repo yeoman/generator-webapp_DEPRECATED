@@ -35,32 +35,24 @@ module.exports = function (grunt) {
       bower: {
         files: ['bower.json'],
         tasks: ['wiredep']
-      },<% if (coffee) { %>
-      coffee: {
-        files: ['<%%= config.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['coffee:dist']
       },
-      coffeeTest: {
-        files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
-        tasks: ['coffee:test', 'test:watch']
-      },<% } else { %>
       js: {
-        files: ['<%%= config.app %>/scripts/{,*/}*.js'],
+        files: ['<%%= config.app %>/js/{,*/}*.js'],
         tasks: ['jshint'],
       },
       jstest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['test:watch']
-      },<% } %>
+      },
       gruntfile: {
         files: ['Gruntfile.js']
       },<% if (includeSass) { %>
       sass: {
-        files: ['<%%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        files: ['<%%= config.app %>/css/{,*/}*.{scss,sass}'],
         tasks: ['sass:server', 'autoprefixer']
       },<% } %>
       styles: {
-        files: ['<%%= config.app %>/styles/{,*/}*.css'],
+        files: ['<%%= config.app %>/css/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
       }
     },
@@ -74,9 +66,9 @@ module.exports = function (grunt) {
         options: {
           files: [
             '<%%= config.app %>/{,*/}*.html',
-            '.tmp/styles/{,*/}*.css',
+            '.tmp/css/{,*/}*.css',
             '<%%= config.app %>/images/{,*/}*',
-            '<%%= config.app %>/scripts/{,*/}*.js'
+            '<%%= config.app %>/js/{,*/}*.js'
           ],
           port: 9000,
           server: {
@@ -132,7 +124,7 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%%= config.app %>/scripts/{,*/}*.js',
+        '<%%= config.app %>/js/{,*/}*.js',
         '!<%%= config.app %>/scripts/vendor/*',
         'test/spec/{,*/}*.js'
       ]
@@ -155,28 +147,6 @@ module.exports = function (grunt) {
           specs: 'test/spec/{,*/}*.js'
         }
       }
-    },<% } %><% if (coffee) { %>
-
-    // Compiles CoffeeScript to JavaScript
-    coffee: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%%= config.app %>/scripts',
-          src: '{,*/}*.{coffee,litcoffee,coffee.md}',
-          dest: '.tmp/scripts',
-          ext: '.js'
-        }]
-      },
-      test: {
-        files: [{
-          expand: true,
-          cwd: 'test/spec',
-          src: '{,*/}*.{coffee,litcoffee,coffee.md}',
-          dest: '.tmp/spec',
-          ext: '.js'
-        }]
-      }
     },<% } %><% if (includeSass) { %>
 
     // Compiles Sass to CSS and generates necessary files if requested
@@ -189,18 +159,18 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%%= config.app %>/styles',
+          cwd: '<%%= config.app %>/css',
           src: ['*.{scss,sass}'],
-          dest: '.tmp/styles',
+          dest: '.tmp/css',
           ext: '.css'
         }]
       },
       server: {
         files: [{
           expand: true,
-          cwd: '<%%= config.app %>/styles',
+          cwd: '<%%= config.app %>/css',
           src: ['*.{scss,sass}'],
-          dest: '.tmp/styles',
+          dest: '.tmp/css',
           ext: '.css'
         }]
       }
@@ -211,16 +181,16 @@ module.exports = function (grunt) {
       options: {
         browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']<% if (includeSass) { %>,
         map: {
-          prev: '.tmp/styles/'
+          prev: '.tmp/css/'
         }
         <% } %>
       },
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/styles/',
+          cwd: '.tmp/css/',
           src: '{,*/}*.css',
-          dest: '.tmp/styles/'
+          dest: '.tmp/css/'
         }]
       }
     },
@@ -234,7 +204,7 @@ module.exports = function (grunt) {
         exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']<% } } %>
       }<% if (includeSass) { %>,
       sass: {
-        src: ['<%%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        src: ['<%%= config.app %>/css/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
       }<% } %>
     },
@@ -243,10 +213,10 @@ module.exports = function (grunt) {
     filerev: {
       dist: {
         src: [
-          '<%%= config.dist %>/scripts/{,*/}*.js',
-          '<%%= config.dist %>/styles/{,*/}*.css',
+          '<%%= config.dist %>/js/{,*/}*.js',
+          '<%%= config.dist %>/css/{,*/}*.css',
           '<%%= config.dist %>/images/{,*/}*.*',
-          '<%%= config.dist %>/styles/fonts/{,*/}*.*',
+          '<%%= config.dist %>/css/fonts/{,*/}*.*',
           '<%%= config.dist %>/*.{ico,png}'
         ]
       }
@@ -268,11 +238,11 @@ module.exports = function (grunt) {
         assetsDirs: [
           '<%%= config.dist %>',
           '<%%= config.dist %>/images',
-          '<%%= config.dist %>/styles'
+          '<%%= config.dist %>/css'
         ]
       },
       html: ['<%%= config.dist %>/{,*/}*.html'],
-      css: ['<%%= config.dist %>/styles/{,*/}*.css']
+      css: ['<%%= config.dist %>/css/{,*/}*.css']
     },
 
     // The following *-min tasks produce minified files in the dist folder
@@ -327,9 +297,9 @@ module.exports = function (grunt) {
     // cssmin: {
     //   dist: {
     //     files: {
-    //       '<%%= config.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css',
-    //         '<%%= config.app %>/styles/{,*/}*.css'
+    //       '<%%= config.dist %>/css/main.css': [
+    //         '.tmp/css/{,*/}*.css',
+    //         '<%%= config.app %>/css/{,*/}*.css'
     //       ]
     //     }
     //   }
@@ -380,8 +350,8 @@ module.exports = function (grunt) {
       styles: {
         expand: true,
         dot: true,
-        cwd: '<%%= config.app %>/styles',
-        dest: '.tmp/styles/',
+        cwd: '<%%= config.app %>/css',
+        dest: '.tmp/css/',
         src: '{,*/}*.css'
       }<% } %>
     },<% if (includeModernizr) { %>
@@ -394,8 +364,8 @@ module.exports = function (grunt) {
         outputFile: '<%%= config.dist %>/scripts/vendor/modernizr.js',
         files: {
           src: [
-            '<%%= config.dist %>/scripts/{,*/}*.js',
-            '<%%= config.dist %>/styles/{,*/}*.css',
+            '<%%= config.dist %>/js/{,*/}*.js',
+            '<%%= config.dist %>/css/{,*/}*.css',
             '!<%%= config.dist %>/scripts/vendor/*'
           ]
         },
@@ -405,17 +375,14 @@ module.exports = function (grunt) {
 
     // Run some tasks in parallel to speed up build process
     concurrent: {
-      server: [<% if (coffee) {  %>
-        'coffee:dist',<% } %><% if (includeSass) { %>
+      server: [<% if (includeSass) { %>
         'sass:server'<% } else { %>
         'copy:styles'<% } %>
       ],
-      test: [<% if (coffee) { %>
-        'coffee'<% } %><% if (coffee && !includeSass) {  %>,<% } %><% if (!includeSass) { %>
+      test: [<% if (!includeSass) { %>
         'copy:styles'<% } %>
       ],
-      dist: [<% if (coffee) { %>
-        'coffee',<% } %><% if (includeSass) { %>
+      dist: [<% if (includeSass) { %>
         'sass',<% } else { %>
         'copy:styles',<% } %>
         'imagemin',

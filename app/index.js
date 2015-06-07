@@ -1,4 +1,5 @@
 'use strict';
+
 var join = require('path').join;
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
@@ -15,13 +16,6 @@ module.exports = yeoman.generators.Base.extend({
     });
     this.testFramework = this.options['test-framework'];
 
-    this.option('coffee', {
-      desc: 'Use CoffeeScript',
-      type: Boolean,
-      defaults: false
-    });
-    this.coffee = this.options.coffee;
-
     this.pkg = require('../package.json');
   },
 
@@ -32,8 +26,7 @@ module.exports = yeoman.generators.Base.extend({
     if (!this.options['skip-welcome-message']) {
       this.log(require('yosay')());
       this.log(chalk.magenta(
-        'Out of the box I include HTML5 Boilerplate, jQuery, and a ' +
-        'Gruntfile.js to build your app.'
+        'I\'m gonna make this an app to remeber!'
       ));
     }
 
@@ -54,6 +47,18 @@ module.exports = yeoman.generators.Base.extend({
         value: 'includeModernizr',
         checked: false
       }]
+    }, {
+      type: 'list',
+      name: 'vrEnv',
+      message: 'Which VR environment would you like me to generate?',
+      default: 'emptyScene',
+      choices: [{
+        name: 'A single empty scene',
+        value: 'emptyScene'
+      }, {
+        name: 'None at all',
+        value: 'none'
+      }]
     }];
 
     this.prompt(prompts, function (answers) {
@@ -66,6 +71,8 @@ module.exports = yeoman.generators.Base.extend({
       this.includeSass = hasFeature('includeSass');
       this.includeBootstrap = hasFeature('includeBootstrap');
       this.includeModernizr = hasFeature('includeModernizr');
+
+      this.vrEnv = answers.vrEnv;
 
       done();
     }.bind(this));
@@ -94,8 +101,6 @@ module.exports = yeoman.generators.Base.extend({
     if (this.includeBootstrap) {
       var bs = 'bootstrap' + (this.includeSass ? '-sass-official' : '');
       bower.dependencies[bs] = '~3.3.0';
-    } else {
-      bower.dependencies.jquery = '~1.11.1';
     }
 
     if (this.includeModernizr) {
@@ -115,13 +120,13 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   mainStylesheet: function () {
-    var css = 'main.' + (this.includeSass ? 's' : '') + 'css';
-    this.template(css, 'app/styles/' + css);
+    var css = 'css/main.' + (this.includeSass ? 's' : '') + 'css';
+    this.template(css, 'app/' + css);
   },
 
   writeIndex: function () {
     this.indexFile = this.engine(
-      this.readFileAsString(join(this.sourceRoot(), 'index.html')),
+      this.readFileAsString(join(this.sourceRoot(), 'app/index.html')),
       this
     );
 
@@ -154,23 +159,30 @@ module.exports = yeoman.generators.Base.extend({
     this.indexFile = this.appendFiles({
       html: this.indexFile,
       fileType: 'js',
-      optimizedPath: 'scripts/main.js',
-      sourceFileList: ['scripts/main.js'],
+      optimizedPath: 'js/main.js',
+      sourceFileList: ['js/main.js', 'js/util.js'],
       searchPath: ['app', '.tmp']
     });
   },
 
   app: function () {
     this.directory('app');
-    this.mkdir('app/scripts');
-    this.mkdir('app/styles');
-    this.mkdir('app/images');
+    this.mkdir('app/css');
+    this.mkdir('app/js');
     this.write('app/index.html', this.indexFile);
+    
+    this.copy('js/main.js', 'app/js/main.js');
+    this.copy('js/util.js', 'app/js/util.js');
+  },
 
-    if (this.coffee) {
-      this.copy('main.coffee', 'app/scripts/main.coffee');
-    } else {
-      this.copy('main.js', 'app/scripts/main.js');
+  vr: function () {
+    switch (this.vrEnv) {
+      case 'none':
+        this.directory('vr/no-vr-env', 'app/vr');
+        break;
+      case 'emptyScene':
+      default:
+        this.directory('vr/google-vr', 'app/vr');
     }
   },
 
@@ -179,8 +191,7 @@ module.exports = yeoman.generators.Base.extend({
       this.invoke(this.options['test-framework'], {
         options: {
           'skip-message': this.options['skip-install-message'],
-          'skip-install': this.options['skip-install'],
-          'coffee': this.options.coffee
+          'skip-install': this.options['skip-install']
         }
       });
 

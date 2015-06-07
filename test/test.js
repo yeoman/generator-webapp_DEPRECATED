@@ -49,12 +49,11 @@ describe('Webapp generator', function () {
 
         assert.file([].concat(
           expected,
-          'app/styles/main.css',
-          'app/scripts/main.js'
+          'app/css/main.css',
+          'app/js/main.js'
         ));
         assert.noFile([
-          'app/styles/main.scss',
-          'app/scripts/main.coffee'
+          'app/css/main.scss'
         ]);
 
         assert.fileContent(expectedContent);
@@ -80,29 +79,10 @@ describe('Webapp generator', function () {
       });
     });
 
-    it('creates expected CoffeeScript files', function (done) {
-      runGen.withOptions(
-        _.extend(options, {coffee: true})
-      ).on('end', function () {
-
-        assert.file([].concat(
-          expected,
-          'app/scripts/main.coffee'
-        ));
-        assert.noFile('app/scripts/main.js');
-
-        assert.fileContent([].concat(
-          expectedContent,
-          [['Gruntfile.js', /coffee/]]
-        ));
-
-        done();
-      });
-    });
-
     it('creates expected modernizr components', function (done) {
-      runGen.withOptions(options).withPrompt({features: ['includeModernizr']})
-      .on('end', function () {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeModernizr']
+      }).on('end', function () {
 
         assert.fileContent([
           ['Gruntfile.js', /modernizr/],
@@ -116,8 +96,9 @@ describe('Webapp generator', function () {
     });
 
     it('creates expected bootstrap components', function (done) {
-      runGen.withOptions(options).withPrompt({features: ['includeBootstrap']})
-      .on('end', function () {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeBootstrap']
+      }).on('end', function () {
 
         assert.fileContent([
           ['Gruntfile.js', /bootstrap/],
@@ -155,6 +136,45 @@ describe('Webapp generator', function () {
           ['Gruntfile.js', /bootstrap-sass-official/],
           ['app/index.html', /Sass is a mature/],
           ['bower.json', /bootstrap-sass-official/]
+        ]);
+
+        done();
+      });
+    });
+
+    it('creates expected empty vr scene files', function (done) {
+      runGen.withOptions(options).withPrompt({
+        vrEnv: 'emptyScene'
+      }).on('end', function () {
+
+        assert.file([
+          'app/vr/index.html',
+          'app/vr/js/third-party/threejs/DeviceOrientationControls.js',
+          'app/vr/js/third-party/threejs/OrbitControls.js',
+          'app/vr/js/third-party/threejs/StereoEffect.js',
+          'app/vr/js/third-party/threejs/three.js',
+          'app/vr/textures/patterns/checker.png'
+        ]);
+
+        assert.fileContent([
+          ['app/index.html', /The code for this virtual reality demo was sourced from the code preview available at/],
+        ]);
+
+        done();
+      });
+    });
+
+    it('creates expected file when no vr env is requested', function (done) {
+      runGen.withOptions(options).withPrompt({
+        vrEnv: 'none'
+      }).on('end', function () {
+
+        assert.file([
+          'app/vr/index.html'
+        ]);
+
+        assert.fileContent([
+          ['app/vr/index.html', /This is the start of something very cool/],
         ]);
 
         done();

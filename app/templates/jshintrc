@@ -7,7 +7,6 @@
   "esnext": true,
   "immed": true,<% if (testFramework === 'jasmine') { %>
   "jasmine": true,<% } %>
-  "jquery": true,
   "latedef": true,<% if (testFramework === 'mocha') { %>
   "mocha": true,<% } %>
   "newcap": true,
@@ -15,5 +14,9 @@
   "quotmark": "single",
   "strict": true,
   "undef": true,
-  "unused": true
+  "unused": true,
+  "globalstrict": true,
+  "predef": [
+    "util"
+  ]
 }

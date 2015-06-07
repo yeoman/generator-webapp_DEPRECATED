@@ -1,14 +1,12 @@
-# Web app generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-webapp.svg?branch=master)](http://travis-ci.org/yeoman/generator-webapp)
+# Cardboard Web App Generator [![Build Status](https://secure.travis-ci.org/jeshuamaxey/generator-cardboard.svg?branch=master)](http://travis-ci.org/jeshuamaxey/generator-cardboard)
 
-[Yeoman](http://yeoman.io) generator that scaffolds out a front-end web app.
-
-![](http://i.imgur.com/uKTT2Hj.png)
+[Yeoman](http://yeoman.io) generator that scaffolds out a web app complete with a virtual reality environment built with [THREE.js](http://threejs.org) which is [Google Cardboard](http://g.co/cardboard) compatible.
 
 ## Features
 
 * CSS Autoprefixing
 * Built-in preview server with LiveReload
-* Automagically compile CoffeeScript & Sass
+* Automagically compile Sass
 * Automagically lint your scripts
 * Automagically wire up your Bower components with [grunt-wiredep](#third-party-dependencies).
 * Awesome Image Optimization (via OptiPNG, pngquant, jpegtran and gifsicle)
@@ -16,14 +14,11 @@
 * Bootstrap for Sass (Optional)
 * Leaner Modernizr builds (Optional)
 
-For more information on what `generator-webapp` can do for you, take a look at the [Grunt tasks](https://github.com/yeoman/generator-webapp/blob/master/app/templates/_package.json) used in our `package.json`.
-
-
 ## Getting Started
 
-- Install: `npm install -g generator-webapp`
-- Run: `yo webapp`
-- Run `grunt` for building and `grunt serve` for preview[\*](#grunt-serve-note). `--allow-remote` option for remote access.
+- Install: `npm install -g generator-cardboard`
+- Run: `yo cardboard`
+- Run `grunt` for building and `grunt serve` for preview. `--allow-remote` option for remote access.
 
 
 #### Third-Party Dependencies
@@ -45,17 +40,6 @@ The components are installed in the root of the project at `/bower_components`. 
 
 *Testing Note*: a project checked into source control and later checked out needs to have `bower install` run from the `test` folder as well as from the project root.
 
-
-#### Grunt Serve Note
-
-Note: `grunt server` was used for previewing in earlier versions of the project, and has since been deprecated in favor of `grunt serve`.
-
-
-## Docs
-
-We have [recipes](docs/recipes) for integrating other popular technologies like Compass.
-
-
 ## Options
 
 * `--skip-install`
@@ -66,19 +50,10 @@ We have [recipes](docs/recipes) for integrating other popular technologies like 
 
   Defaults to `mocha`. Can be switched for another supported testing framework like `jasmine`.
 
-* `--coffee`
-
-  Add support for [CoffeeScript](http://coffeescript.org/).
-
 
 ## Contribute
 
-See the [contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md).
-
-Note: We are regularly asked whether we can add or take away features. If a change is good enough to have a positive impact on all users, we are happy to consider it.
-
-If not, `generator-webapp` is fork-friendly and you can always maintain a custom version which you `npm install && npm link` to continue using via `yo webapp` or a name of your choosing.
-
+See the [yeoman contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md).
 
 ## License
 
