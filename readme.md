@@ -18,7 +18,7 @@
 
 - Install: `npm install -g generator-cardboard`
 - Run: `yo cardboard`
-- Run `grunt` for building and `grunt serve` for preview[\*](#grunt-serve-note). `--allow-remote` option for remote access.
+- Run `grunt` for building and `grunt serve` for preview. `--allow-remote` option for remote access.
 
 
 #### Third-Party Dependencies
@@ -40,12 +40,6 @@ The components are installed in the root of the project at `/bower_components`. 
 
 *Testing Note*: a project checked into source control and later checked out needs to have `bower install` run from the `test` folder as well as from the project root.
 
-
-#### Grunt Serve Note
-
-Note: `grunt server` was used for previewing in earlier versions of the project, and has since been deprecated in favor of `grunt serve`.
-
-
 ## Options
 
 * `--skip-install`
@@ -59,12 +53,7 @@ Note: `grunt server` was used for previewing in earlier versions of the project,
 
 ## Contribute
 
-See the [contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md).
-
-Note: We are regularly asked whether we can add or take away features. If a change is good enough to have a positive impact on all users, we are happy to consider it.
-
-If not, `generator-webapp` is fork-friendly and you can always maintain a custom version which you `npm install && npm link` to continue using via `yo webapp` or a name of your choosing.
-
+See the [yeoman contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md).
 
 ## License
 

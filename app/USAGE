@@ -5,7 +5,7 @@ Options:
     Bootstrap: Include Bootstrap for Sass
 
 Example:
-    yo webapp [--coffee]
+    yo cardboard
 
     This will create:
         Gruntfile.js: Configuration for the task runner.
@@ -13,4 +13,5 @@ Example:
         package.json: Development packages installed by npm.
 
         app/: Your application files.
+        app/vr: The virtual reality application files.
         test/: Unit tests for your application.

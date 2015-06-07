@@ -1,6 +1,6 @@
 {
   "name": "generator-cardboard",
-  "version": "0.5.1",
+  "version": "1.0.0",
   "description": "Scaffold out a web based Google cardboard VR experience",
   "license": "BSD",
   "repository": "jeshuamaxey/generator-cardboard",
@@ -14,12 +14,12 @@
   ],
   "keywords": [
     "yeoman-generator",
-    "web",
-    "app",
-    "front-end",
+    "virtual-reality",
+    "vr",
+    "google-cardboard",
     "cardboard",
-    "three-js",
-    "grunt"
+    "web-vr",
+    "three-js"
   ],
   "dependencies": {
     "chalk": "^1.0.0",
