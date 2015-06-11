@@ -87,6 +87,7 @@ module.exports = function (grunt) {
             '<%%= config.app %>/images/{,*/}*',
             '<%%= config.app %>/scripts/{,*/}*.js'
           ],
+          port: 9000,
           server: {
             baseDir: ['.tmp', config.app],
             routes: {
@@ -188,12 +189,11 @@ module.exports = function (grunt) {
 
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
-      options: {<% if (includeLibSass) { %>
+      options: {
         sourceMap: true,
-        includePaths: ['bower_components']
-        <% } else { %>
+        includePaths: ['bower_components'],
         loadPath: 'bower_components'
-      <% } %>},
+      },
       dist: {
         files: [{
           expand: true,
