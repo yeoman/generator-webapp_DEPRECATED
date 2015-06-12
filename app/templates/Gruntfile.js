@@ -432,7 +432,19 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('lint', ['jshint', 'jscs']);
+  grunt.registerTask('lint', function (target) {
+    console.log(target);
+    var tasks = [
+      'jshint',
+      'jscs'
+    ];
+
+    if (target === 'newer') {
+      tasks = tasks.map(function (task) { return 'newer:' + task; });
+    }
+
+    grunt.task.run(tasks);
+  });
 
   grunt.registerTask('serve', 'start the server and preview your app', function (target) {
 
@@ -488,8 +500,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'newer:jshint',
-    'newer:jscs',
+    'lint:newer',
     'test',
     'build'
   ]);
