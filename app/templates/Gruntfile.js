@@ -55,7 +55,7 @@ module.exports = function (grunt) {
       },<% } else { %>
       js: {
         files: ['<%%= config.app %>/scripts/{,*/}*.js'],
-        tasks: ['jscheck']
+        tasks: ['lint']
       },
       jstest: {
         files: ['test/spec/{,*/}*.js'],
@@ -432,7 +432,7 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('jscheck', ['jshint', 'jscs']);
+  grunt.registerTask('lint', ['jshint', 'jscs']);
 
   grunt.registerTask('serve', 'start the server and preview your app', function (target) {
 
