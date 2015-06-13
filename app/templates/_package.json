@@ -24,6 +24,7 @@
     "grunt-svgmin": "^2.0.1",
     "grunt-usemin": "^3.0.0",
     "grunt-wiredep": "^2.0.0",
+    "grunt-jscs": "^1.6.0",
     "jshint-stylish": "^1.0.1",
     "load-grunt-tasks": "^3.1.0",
     "time-grunt": "^1.1.0"
