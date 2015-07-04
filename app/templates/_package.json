@@ -1,7 +1,15 @@
 {
   "private": true,
+  "engines": {
+    "node": ">=0.12.0"
+  },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
+<% if (taskRunner === 'Gulp') { -%>
+    "browser-sync": "^2.2.1",
+    "del": "^1.1.1",
+<% } -%>
+<% if (taskRunner === 'Grunt') { -%>
     "grunt": "^0.4.5",
 <% if (useBabel) { -%>
     "grunt-babel": "^5.0.0",
@@ -37,17 +45,40 @@
     "grunt-wiredep": "^2.0.0",
     "jit-grunt": "^0.9.1",
     "time-grunt": "^1.1.0"
+<% } else if (taskRunner === 'Gulp') { -%>
+    "gulp": "^3.9.0",
+<% if (useBabel) { -%>
+    "gulp-babel": "^5.1.0",
+<% } -%>
+    "gulp-cache": "^0.2.8",
+    "gulp-eslint": "^0.13.2",
+    "gulp-if": "^1.2.5",
+    "gulp-imagemin": "^2.2.1",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-minify-css": "^1.1.1",
+    "gulp-minify-html": "^1.0.0",
+<% if (includeSass) { -%>
+    "gulp-plumber": "^1.0.1",
+    "gulp-sass": "^2.0.0",
+<% } -%>
+    "gulp-size": "^1.2.1",
+    "gulp-sourcemaps": "^1.5.0",
+    "gulp-uglify": "^1.1.0",
+    "gulp-useref": "^1.1.1",
+    "main-bower-files": "^2.5.0",
+    "wiredep": "^2.2.2"
+<% } -%>
   },
-  "engines": {
-    "node": ">=0.10.0"
-  },
+<% if (taskRunner === 'Grunt') { -%>
   "scripts": {
     "test": "grunt test"
   },
+<% } -%>
   "eslintConfig": {
     "env": {
       "node": true,
-      "browser": true<% if (testFramework === 'mocha') { %>,
+      "browser": true<% if (useBabel) { %>,
+      "es6": true<% } %><% if (testFramework === 'mocha') { %>,
       "mocha": true<% } else if (testFramework === 'jasmine') { %>,
       "jasmine": true<% } %>
     },

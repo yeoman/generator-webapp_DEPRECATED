@@ -22,7 +22,6 @@ module.exports = generators.Base.extend({
       type: Boolean
     });
 
-    // setup the test-framework property, Gruntfile template will need this
     this.option('test-framework', {
       desc: 'Test framework to be invoked',
       type: String,
@@ -62,9 +61,18 @@ module.exports = generators.Base.extend({
     }
 
     var prompts = [{
+      type: 'list',
+      name: 'taskRunner',
+      message: 'Which task runner would you like to use?',
+      choices: [
+        'Gulp',
+        'Grunt'
+      ],
+      default: 'Gulp'
+    }, {
       type: 'checkbox',
       name: 'features',
-      message: 'What more would you like?',
+      message: 'Which features would you like to include?',
       choices: [{
         name: 'Sass',
         value: 'includeSass',
@@ -95,6 +103,7 @@ module.exports = generators.Base.extend({
         return features && features.indexOf(feat) !== -1;
       }
 
+      this.taskRunner = answers.taskRunner;
       this.includeSass = hasFeature('includeSass');
       this.includeBootstrap = hasFeature('includeBootstrap');
       this.includeModernizr = hasFeature('includeModernizr');
@@ -105,11 +114,20 @@ module.exports = generators.Base.extend({
   },
 
   writing: {
-    gruntfile: function () {
+    tasks: function () {
+      var file;
+
+      if (this.taskRunner === 'Gulp') {
+        file = 'gulpfile.babel.js';
+      } else if (this.taskRunner === 'Grunt') {
+        file = 'Gruntfile.js';
+      }
+
       this.fs.copyTpl(
-        this.templatePath('Gruntfile.js'),
-        this.destinationPath('Gruntfile.js'),
+        this.templatePath(file),
+        this.destinationPath(file),
         {
+          date: (new Date).toISOString().split('T')[0],
           pkg: this.pkg,
           includeSass: this.includeSass,
           includeBootstrap: this.includeBootstrap,
@@ -120,11 +138,12 @@ module.exports = generators.Base.extend({
       );
     },
 
-    packageJSON: function () {
+    npm: function () {
       this.fs.copyTpl(
         this.templatePath('_package.json'),
         this.destinationPath('package.json'),
         {
+          taskRunner: this.taskRunner,
           includeSass: this.includeSass,
           includeModernizr: this.includeModernizr,
           testFramework: this.options['test-framework'],
@@ -263,7 +282,7 @@ module.exports = generators.Base.extend({
       );
     },
 
-    icons: function () {
+    h5bp: function () {
       this.fs.copy(
         this.templatePath('favicon.ico'),
         this.destinationPath('app/favicon.ico')
@@ -273,9 +292,7 @@ module.exports = generators.Base.extend({
         this.templatePath('apple-touch-icon.png'),
         this.destinationPath('app/apple-touch-icon.png')
       );
-    },
 
-    robots: function () {
       this.fs.copy(
         this.templatePath('robots.txt'),
         this.destinationPath('app/robots.txt')
