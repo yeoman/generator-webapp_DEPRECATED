@@ -1,16 +1,21 @@
 Description:
-    Creates a new basic front-end web application.
+  Creates a new basic front-end web application.
 
 Options:
-    Bootstrap: Include Bootstrap for Sass
+  Task runner: Use Gulp or Grunt
+  Sass: Include Sass (using libsass)
+  Bootstrap: Include Bootstrap or Bootstrap Sass if Sass is included
+  Modernizr: Include Modernizr
 
 Example:
-    yo webapp
+  yo webapp
 
-    This will create:
-        Gruntfile.js: Configuration for the task runner.
-        bower.json: Front-end packages installed by bower.
-        package.json: Development packages installed by npm.
+  This will create:
+    Depending on the task runner you choose:
+      gulpfile.babel.js: Configuration for the Gulp task runner.
+      Gruntfile.js: Configuration for the Grunt task runner
+    bower.json: Front-end packages installed by bower.
+    package.json: Development packages installed by npm.
 
-        app/: Your application files.
-        test/: Unit tests for your application.
+    app/: Your application files.
+    test/: Unit tests for your application.

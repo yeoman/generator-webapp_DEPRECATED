@@ -4,30 +4,66 @@ var helpers = require('yeoman-generator').test;
 var assert = require('yeoman-assert');
 
 describe('sass', function () {
-  before(function (done) {
-    helpers.run(path.join(__dirname, '../app'))
-      .inDir(path.join(__dirname, '.tmp'))
-      .withOptions({'skip-install': true})
-      .withPrompts({features: [
-        'includeSass'
-      ]})
-      .on('end', done);
+  describe('general', function () {
+    before(function (done) {
+      helpers.run(path.join(__dirname, '../app'))
+        .inDir(path.join(__dirname, '.tmp'))
+        .withOptions({'skip-install': true})
+        .withPrompts({
+          features: [
+            'includeSass'
+          ]
+        })
+        .on('end', done);
+    });
+
+    it('uses scss', function () {
+      assert.file('app/styles/main.scss');
+      assert.noFile('app/styles/main.css');
+    });
+
+    it('adds the html description', function () {
+      assert.fileContent('app/index.html', 'Sass');
+    });
   });
 
-  it('uses SCSS', function () {
-    assert.file('app/styles/main.scss');
-    assert.noFile('app/styles/main.css');
+  describe('with gulp', function () {
+    before(function (done) {
+      helpers.run(path.join(__dirname, '../app'))
+        .inDir(path.join(__dirname, '.tmp'))
+        .withOptions({'skip-install': true})
+        .withPrompts({
+          taskRunner: 'Gulp',
+          features: [
+            'includeSass'
+          ]
+        })
+        .on('end', done);
+    });
+
+    it('uses the gulp plugin', function () {
+      assert.fileContent('package.json', 'gulp-sass');
+      assert.fileContent('gulpfile.babel.js', '$.sass');
+    });
   });
 
-  it('adds the Grunt plugin', function () {
-    assert.fileContent('package.json', 'sass');
-  });
+  describe('with grunt', function () {
+    before(function (done) {
+      helpers.run(path.join(__dirname, '../app'))
+        .inDir(path.join(__dirname, '.tmp'))
+        .withOptions({'skip-install': true})
+        .withPrompts({
+          taskRunner: 'Grunt',
+          features: [
+            'includeSass'
+          ]
+        })
+        .on('end', done);
+    });
 
-  it('adds the Grunt task', function () {
-    assert.fileContent('Gruntfile.js', 'sass');
-  });
-
-  it('adds the HTML description', function () {
-    assert.fileContent('app/index.html', 'Sass');
+    it('uses the grunt plugin', function () {
+      assert.fileContent('package.json', 'grunt-sass');
+      assert.fileContent('Gruntfile.js', 'sass');
+    });
   });
 });

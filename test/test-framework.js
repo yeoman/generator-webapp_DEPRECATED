@@ -5,52 +5,86 @@ var assert = require('yeoman-assert');
 
 describe('test framework', function () {
   describe('mocha', function () {
-    before(function (done) {
-      helpers.run(path.join(__dirname, '../app'))
-        .inDir(path.join(__dirname, '.tmp'))
-        .withOptions({
-          'skip-install': true,
-          'test-framework': 'mocha'
-        })
-        .withPrompts({features: []})
-        .on('end', done);
+    describe('general', function () {
+      before(function (done) {
+        helpers.run(path.join(__dirname, '../app'))
+          .inDir(path.join(__dirname, '.tmp'))
+          .withOptions({
+            'skip-install': true,
+            'test-framework': 'mocha'
+          })
+          .withPrompts({
+            features: []
+          })
+          .on('end', done);
+      });
+
+      it('uses the correct eslint environment', function () {
+        assert.fileContent('package.json', '"mocha"');
+      });
     });
 
-    it('adds the Grunt plugin', function () {
-      assert.fileContent('package.json', '"grunt-mocha"');
-    });
+    describe('with grunt', function () {
+      before(function (done) {
+        helpers.run(path.join(__dirname, '../app'))
+          .inDir(path.join(__dirname, '.tmp'))
+          .withOptions({
+            'skip-install': true,
+            'test-framework': 'mocha'
+          })
+          .withPrompts({
+            taskRunner: 'Grunt',
+            features: []
+          })
+          .on('end', done);
+      });
 
-    it('adds the Grunt task', function () {
-      assert.fileContent('Gruntfile.js', 'mocha');
-    });
-
-    it('uses the ESLint environment', function () {
-      assert.fileContent('package.json', '"mocha"');
+      it('uses the grunt plugin', function () {
+        assert.fileContent('package.json', '"grunt-mocha"');
+        assert.fileContent('Gruntfile.js', 'mocha');
+      });
     });
   });
 
   describe('jasmine', function () {
-    before(function (done) {
-      helpers.run(path.join(__dirname, '../app'))
-        .inDir(path.join(__dirname, '.tmp'))
-        .withOptions({
-          'skip-install': true,
-          'test-framework': 'jasmine'
-        })
-        .withPrompts({features: []})
-        .on('end', done);
+    describe('general', function () {
+      before(function (done) {
+        helpers.run(path.join(__dirname, '../app'))
+          .inDir(path.join(__dirname, '.tmp'))
+          .withOptions({
+            'skip-install': true,
+            'test-framework': 'jasmine'
+          })
+          .withPrompts({
+            features: []
+          })
+          .on('end', done);
+      });
+
+      it('uses the correct eslint environment', function () {
+        assert.fileContent('package.json', '"jasmine"');
+      });
     });
 
-    it('adds the Grunt plugin', function () {
-      assert.fileContent('package.json', '"grunt-contrib-jasmine"');
-    });
+    describe('with grunt', function () {
+      before(function (done) {
+        helpers.run(path.join(__dirname, '../app'))
+          .inDir(path.join(__dirname, '.tmp'))
+          .withOptions({
+            'skip-install': true,
+            'test-framework': 'jasmine'
+          })
+          .withPrompts({
+            taskRunner: 'Grunt',
+            features: []
+          })
+          .on('end', done);
+      });
 
-    it('adds the Grunt task', function () {
-      assert.fileContent('Gruntfile.js', 'jasmine');
-    });
-
-    it('uses the ESLint environment', function () {
-      assert.fileContent('package.json', '"jasmine"');
+      it('uses the grunt plugin', function () {
+        assert.fileContent('package.json', '"grunt-contrib-jasmine"');
+        assert.fileContent('Gruntfile.js', 'jasmine');
+      });
     });
   });
 });

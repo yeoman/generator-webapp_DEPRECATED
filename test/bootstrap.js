@@ -9,59 +9,68 @@ describe('bootstrap', function () {
       helpers.run(path.join(__dirname, '../app'))
         .inDir(path.join(__dirname, '.tmp'))
         .withOptions({'skip-install': true})
-        .withPrompts({features: [
-          'includeBootstrap'
-        ]})
+        .withPrompts({
+          features: [
+            'includeBootstrap'
+          ]
+        })
         .on('end', done);
     });
 
-    it('adds the Bootstrap dependency', function () {
+    it('adds the bower dependency', function () {
       assert.fileContent('bower.json', 'bootstrap');
     });
 
-    it('doesn\'t explicitly add the jQuery dependency', function () {
+    it('doesn\'t explicitly add jquery', function () {
       assert.noFileContent('bower.json', 'jquery');
     });
 
-    it('adds Bootstrap paths to Gruntfile.js', function () {
-      assert.fileContent('Gruntfile.js', 'bootstrap');
+    it('adds the comment block', function () {
+      assert.fileContent('app/index.html', 'scripts/plugins.js')
     });
 
-    it('adds the HTML description', function () {
+    it('adds the html description', function () {
       assert.fileContent('app/index.html', 'Bootstrap');
     });
   });
 
-  describe('with Sass', function () {
+  describe('with sass', function () {
     before(function (done) {
       helpers.run(path.join(__dirname, '../app'))
         .inDir(path.join(__dirname, '.tmp'))
         .withOptions({'skip-install': true})
-        .withPrompts({features: [
-          'includeSass',
-          'includeBootstrap'
-        ]})
+        .withPrompts({
+          taskRunner: 'Grunt',
+          features: [
+            'includeSass',
+            'includeBootstrap'
+          ]
+        })
         .on('end', done);
     });
 
-    it('uses Bootstrap Sass', function () {
+    it('uses bootstrap sass', function () {
       assert.fileContent('bower.json', '"bootstrap-sass"');
       assert.fileContent('Gruntfile.js', '/bootstrap-sass/');
+      assert.fileContent('app/styles/main.scss', '$icon-font-path');
     });
   });
 
-  describe('without Sass', function () {
+  describe('without sass', function () {
     before(function (done) {
       helpers.run(path.join(__dirname, '../app'))
         .inDir(path.join(__dirname, '.tmp'))
         .withOptions({'skip-install': true})
-        .withPrompts({features: [
-          'includeBootstrap'
-        ]})
+        .withPrompts({
+          taskRunner: 'Grunt',
+          features: [
+            'includeBootstrap'
+          ]
+        })
         .on('end', done);
     });
 
-    it('uses regular Bootstrap', function () {
+    it('uses regular bootstrap', function () {
       assert.fileContent('bower.json', '"bootstrap"');
       assert.fileContent('Gruntfile.js', '/bootstrap/');
     });

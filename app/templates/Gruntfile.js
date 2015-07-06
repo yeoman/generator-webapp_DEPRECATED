@@ -1,5 +1,4 @@
-// Generated on <%= (new Date).toISOString().split('T')[0] %> using
-// <%= pkg.name %> <%= pkg.version %>
+// generated on <%= date %> using <%= pkg.name %> <%= pkg.version %>
 'use strict';
 
 // # Globbing
@@ -449,11 +448,6 @@ module.exports = function (grunt) {
       'browserSync:livereload',
       'watch'
     ]);
-  });
-
-  grunt.registerTask('server', function (target) {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run([target ? ('serve:' + target) : 'serve']);
   });
 
   grunt.registerTask('test', function (target) {
