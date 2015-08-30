@@ -41,7 +41,10 @@ module.exports = function (grunt) {
         tasks: ['babel:dist']
       },
       babelTest: {
-        files: ['test/spec/{,*/}*.js'],
+        files: [
+          'test/spec/{,*/}*.js',
+          'test/helpers/{,*/}*.js'
+        ],
         tasks: ['babel:test', 'test:watch']
       },<% } else { %>
       js: {
@@ -166,7 +169,11 @@ module.exports = function (grunt) {
 <% } else { -%>
           specs: '{test,.tmp}/spec/{,*/}*.js',
 <% } -%>
+<% if (useBabel) { -%>
+          helpers: '.tmp/helpers/{,*/}*.js',
+<% } else { -%>
           helpers: '{test,.tmp}/helpers/{,*/}*.js',
+<% } -%>
           host: 'http://<%%= browserSync.test.options.host %>:<%%= browserSync.test.options.port %>'
         }
       }
@@ -191,7 +198,10 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: 'test/spec',
-          src: '{,*/}*.js',
+          src: [
+            '{,*/}*.js',
+            '../helpers/{,*/}*.js'
+          ],
           dest: '.tmp/spec',
           ext: '.js'
         }]
