@@ -41,10 +41,7 @@ module.exports = function (grunt) {
         tasks: ['babel:dist']
       },
       babelTest: {
-        files: [
-          'test/spec/{,*/}*.js',
-          'test/helpers/{,*/}*.js'
-        ],
+        files: 'test/{spec,helpers}/{,*/}*.js',
         tasks: ['babel:test', 'test:watch']
       },<% } else { %>
       js: {
